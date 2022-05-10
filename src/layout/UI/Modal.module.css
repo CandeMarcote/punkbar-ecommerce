@@ -1,0 +1,14 @@
+.modal {
+    background-color: antiquewhite;
+    border-radius: 2em;
+    box-shadow: 0 0 0 50vh rgba(0,0,0,0.5);
+    height: auto;
+    max-width: 65vw;
+    padding: 2rem;
+    overflow: hidden;
+
+    position: absolute;
+        top: 50%;
+        left: 50%;
+    transform: translate(-50%, -50%);
+}

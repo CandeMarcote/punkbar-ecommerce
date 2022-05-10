@@ -1,0 +1,27 @@
+.cartButton {
+    border-radius: 1em;
+    width: 5em;
+    position: relative;
+}
+
+.cartIcon {
+    width: 2rem;
+    aspect-ratio: 1;
+    background-color: blue;
+    position: absolute;
+        bottom: 2px;
+        left:50%;
+    transform: translateX(-50%);
+}
+
+.cartItemsNumber {
+    text-align: center;
+    line-height: 25px;
+    width: 25px;
+    aspect-ratio: 1;
+    background-color: tomato;
+    border-radius: 50%;
+    position: absolute;
+        right:20%;
+        top: 10%;
+}

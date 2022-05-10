@@ -1,29 +1,45 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect, useCallback } from 'react';
+import ItemList from './ItemList';
+import ItemDetail from './ItemDetail';
 
 const ItemListContainer = () => {
     const [products, setProducts] = useState([]);
-    
-    function getDataHandler() {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const fetchProductsHandler = () => {
+        setIsLoading(true);
         fetch('https://api.punkapi.com/v2/beers')
         .then(response => {
-            return response.json()
-        })
+                return response.json();
+            }
+        )
         .then(data => {
-            const transformData = data.map(product => {
+            const transformProducts = data.map(product => {
                 return {
-                name: product.name,
-                id: product.id,
-                description: product.description,
-                ibu: product.ibu,
-                abv: product.abv,
-                img_url: product.image_url,
+                    id: product.id,
+                    name: product.name,
+                    description: product.description,
+                    ibu: product.ibu,
+                    abv: product.abv,
+                    price: product.ph,
+                    img: product.image_url,
                 };
             });
-            setProducts(transformData)
+            setProducts(transformProducts)
+            setIsLoading(false)
         })
     }
+
+    useEffect(()=> {
+        fetchProductsHandler();
+    }, [])
+
+   
+
   return (
-    <div onClick={getDataHandler}>ItemListContainer</div>
+    <>
+        {!isLoading && products.length> 0 && <ItemList products={products} />}
+    </>
   )
 }
 
