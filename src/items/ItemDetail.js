@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../layout/UI/Modal';
+import Modal from '../UI/Modal';
 
 const ItemDetail = ({product, onClose}) => {
 

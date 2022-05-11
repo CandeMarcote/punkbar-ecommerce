@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import classes from './Item.module.css';
 import ItemDetail from './ItemDetail';
+import ItemForm from './ItemForm';
+import CartContext from '../store/cart-context';
+
+const htmlBody = document.getElementsByTagName('body');
 
 const Item = ({product}) => {
+    const cartCtx = useContext(CartContext);
     const [showDetail, setShowDetail] = useState(false);
     
     function showDetailHandler() {
@@ -13,21 +18,33 @@ const Item = ({product}) => {
         setShowDetail(false);
     }
 
-    function addToCart() {
-        
+    function addToCartHandler(amount) {
+        cartCtx.addItem({
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            ibu: product.ibu,
+            abv: product.abv,
+            img: product.img,
+            amount,
+        });
     }
+    
     
   return (
       <>
-        <div className={classes.item} onClick={showDetailHandler}>
-            <div>
+        <div className={classes.item}>
+            <div onClick={showDetailHandler}>
                 <p>{product.name}</p>
                 <p>$ {product.price}</p>
                 <p>IBU: {product.ibu}</p>
                 <p>ABV: {product.abv}</p>
-                <button onClick={addToCart}>Add to Cart</button>
             </div>
-            <div className={classes.imgContainer}>
+            <div>
+                <ItemForm onAddToCart={addToCartHandler} />
+            </div>
+            <div className={classes.imgContainer} onClick={showDetailHandler}>
                 <img src={product.img} alt="A delicious beer" />
             </div>
         </div>

@@ -8,10 +8,7 @@
     width: 2rem;
     aspect-ratio: 1;
     background-color: blue;
-    position: absolute;
-        bottom: 2px;
-        left:50%;
-    transform: translateX(-50%);
+    transform: translate(50%, 20%);
 }
 
 .cartItemsNumber {
@@ -22,6 +19,6 @@
     background-color: tomato;
     border-radius: 50%;
     position: absolute;
-        right:20%;
-        top: 10%;
+        right:15%;
+        top: 0%;
 }

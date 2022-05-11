@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import ItemList from './ItemList';
-import ItemDetail from './ItemDetail';
+import React, { useState, useEffect } from 'react';
+import ItemPagination from './ItemPagination';
 
 const ItemListContainer = () => {
     const [products, setProducts] = useState([]);
@@ -8,7 +7,7 @@ const ItemListContainer = () => {
 
     const fetchProductsHandler = () => {
         setIsLoading(true);
-        fetch('https://api.punkapi.com/v2/beers')
+        fetch('https://api.punkapi.com/v2/beers?page=1&per_page=10')
         .then(response => {
                 return response.json();
             }
@@ -33,12 +32,11 @@ const ItemListContainer = () => {
     useEffect(()=> {
         fetchProductsHandler();
     }, [])
-
    
 
   return (
     <>
-        {!isLoading && products.length> 0 && <ItemList products={products} />}
+        {!isLoading && products.length> 0 && <ItemPagination products={products} />}
     </>
   )
 }
