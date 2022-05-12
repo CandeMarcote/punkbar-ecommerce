@@ -9,3 +9,12 @@
     right: 0;
     background-color: beige;
 }
+
+.active {
+    text-decoration: underline;
+    color: green;
+}
+
+a{
+    text-decoration: none;
+}

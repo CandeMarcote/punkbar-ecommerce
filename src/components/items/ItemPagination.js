@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import ItemList from './ItemList';
 
 const amountOfItemsPerPage = 10;
+const totalAmount = 325;
+export let page = undefined; 
 
 const ItemPagination = (props) => {
     const [itemsPerPage, setItemsPerPage] = useState([...props.products].splice(0, amountOfItemsPerPage));
-    const [currentPage, setCurrentPage] = useState(window.localStorage.getItem('currentPage'));
+    const [currentPage, setCurrentPage] = useState(0);
 
     function nextPageHandler() {
-        const totalAmount = props.products.length;
         const nextPage = currentPage + 1;
         const firstIndex = nextPage * amountOfItemsPerPage;
 
@@ -37,13 +38,14 @@ const ItemPagination = (props) => {
         setCurrentPage(0)
     }
     function goToLastPage() {
-        const totalAmount = props.products.length;
-        const lastPage = totalAmount / amountOfItemsPerPage;
+        const lastPage = (totalAmount / amountOfItemsPerPage).toFixed();
         setItemsPerPage([...props.products].splice(lastPage, amountOfItemsPerPage))
         setCurrentPage(lastPage)
     }
 
-    window.localStorage.setItem('currentPage', currentPage )
+    props.onGetCurrentPage(currentPage)
+
+    page = currentPage
 
   return (
     <ItemList products={itemsPerPage} 

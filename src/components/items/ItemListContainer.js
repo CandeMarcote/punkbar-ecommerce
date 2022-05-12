@@ -4,10 +4,11 @@ import ItemPagination from './ItemPagination';
 const ItemListContainer = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
+    let currentPage = undefined;
 
     const fetchProductsHandler = () => {
         setIsLoading(true);
-        fetch('https://api.punkapi.com/v2/beers?page=1&per_page=10')
+        fetch(`https://api.punkapi.com/v2/beers?page=1&per_page=10`)
         .then(response => {
                 return response.json();
             }
@@ -32,11 +33,18 @@ const ItemListContainer = () => {
     useEffect(()=> {
         fetchProductsHandler();
     }, [])
-   
+
+    const productInfoForFilters = products.map(product => {
+        return {name: product.name, ibu: product.ibu, id: product.id}
+    })
+
+    function getCurrentPageHandler(page) {
+        currentPage = page
+    }
 
   return (
     <>
-        {!isLoading && products.length> 0 && <ItemPagination products={products} />}
+        {!isLoading && products.length > 0 && <ItemPagination products={products} onGetCurrentPage={getCurrentPageHandler} />}
     </>
   )
 }

@@ -1,27 +1,43 @@
-import React, { useState, useContext } from 'react';
-import Header from './layout/Header';
-import Main from './layout/Main';
-import Cart from './Cart/Cart';
+import React, { useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Home from './pages/Home';
+import Beers from './pages/Beers';
+import Burgers from './pages/Burgers';
+import Cart from './pages/Cart';
+
+import Header from './components/layout/Header';
 import CartProvider from './store/CartProvider';
-import CartContext from './store/cart-context';
 
 const App = () => {
-  const [showCart, setShowCart] = useState(false);
-
-  function showCartHandler() {
-    setShowCart(true);
-  }
-
-  function hideCartHandler() {
-    setShowCart(false)
-  }
 
   return (
-    <CartProvider>
-      {showCart && <Cart onClose={hideCartHandler}/>}
-      <Header onShowCart={showCartHandler} />
-      <Main />
-    </CartProvider>
+    <>
+      <Header />
+      <CartProvider>
+      <main>
+        <Switch>
+          <Route path='/home' exact>
+            <Home />
+          </Route>
+          <Route path='/' exact>
+            <Redirect to='/home'/>
+          </Route>
+          <Route path='/beers'>
+            <Beers />
+          </Route>
+          <Route path='/burgers'>
+            <Burgers />
+          </Route>
+          <Route path='/cart'>
+            <Cart />
+          </Route>
+          <Route path='/*'>
+            <Redirect to='/home'/>
+          </Route>
+        </Switch>
+      </main>
+      </CartProvider>
+    </>
   )
 }
 

@@ -2,9 +2,7 @@ import React, { useState, useContext } from 'react';
 import classes from './Item.module.css';
 import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
-import CartContext from '../store/cart-context';
-
-const htmlBody = document.getElementsByTagName('body');
+import CartContext from '../../store/cart-context';
 
 const Item = ({product}) => {
     const cartCtx = useContext(CartContext);
