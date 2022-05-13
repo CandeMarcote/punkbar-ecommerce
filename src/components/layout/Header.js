@@ -13,6 +13,7 @@ const Header = (props) => {
             <div>
             <li><NavLink to='/beers'>Beers</NavLink></li>
             <li><NavLink to='/burgers'>Burgers</NavLink></li>
+            <li><NavLink to='/favorites'>Favorites</NavLink></li>
             </div>
             <li><NavLink to='/cart' activeClassName={classes.active}><HeaderCartButton onShowCart={props.onShowCart}/></NavLink></li>
         </ul>

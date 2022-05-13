@@ -1,22 +1,18 @@
-import React, {useRef} from 'react';
+import React, { useState } from 'react';
 
-export const inputValue = undefined;
+const ItemFilter = (props) => {
+  const [filterInput, setFilterInput] = useState('')
+  
+  function inputChangeHandler(e) {
+    setFilterInput(e.target.value);
+  }
+  props.onGetSearchValue(filterInput)
 
-const ItemFilter = () => {
-    const inputValueRef = useRef();
-    inputValue = inputValueRef.current.value;
-
-    function findItemHandler(event) {
-        event.preventDefault();
-        if(inputValue.trim() === '') return
-        console.log(inputValueRef.current.value)
-    }
-    
   return (
-    <form onSubmit={findItemHandler}>
-        <input type="text" ref={inputValueRef}/>
-        <button type='submit'>Buscar</button>
-    </form>
+    <div>
+      <label htmlFor='search'>Buscar </label>
+      <input type="text" id='search' onChange={inputChangeHandler}/>
+    </div>
   )
 }
 

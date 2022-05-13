@@ -10,7 +10,6 @@ const ItemForm = (props) => {
 
         if(enteredAmount < 0) return
 
-
         props.onAddToCart(enteredAmount) 
     }
 

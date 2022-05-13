@@ -8,9 +8,9 @@ const CartProvider = (props) => {
   const addItemToCartHandler = item => {
     const existingProductIndex = productsInCart.findIndex((product) => product.id === item.id);
     const existingProduct = productsInCart[existingProductIndex];
-
+    
     let updatedProducts= undefined;
-
+    
     if(existingProduct) {
       const updatedProduct = {
         ...existingProduct,
@@ -19,9 +19,10 @@ const CartProvider = (props) => {
       updatedProducts = [...productsInCart];
       updatedProducts[existingProductIndex] = updatedProduct
     } else {
-      updatedProducts = productsInCart.concat(item)
+      updatedProducts = [...productsInCart]
+      updatedProducts = updatedProducts.concat(item)
     }
-
+    
     setProductsInCart(updatedProducts);
     setProductsAmount(productsInCart.length);
   }
