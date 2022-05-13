@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import React from 'react';
-import Modal from '../UI/Modal';
-import CartContext from '../store/cart-context';
-import CartItem from './CartItem';
+import Modal from '../../UI/Modal';
+import CartContext from '../../store/cart-context';
+import CartItem from '../../Cart/CartItem';
 
 const Cart = (props) => {
     const cartCtx = useContext(CartContext);
