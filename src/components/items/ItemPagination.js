@@ -4,7 +4,7 @@ const amountOfItemsPerPage = 10;
 const totalAmount = 330;
 
 const ItemPagination = (props) => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(JSON.parse(localStorage.getItem('currentPage')) || 1);
 
     function nextPageHandler() {
         const nextPage = currentPage + 1;
@@ -35,6 +35,7 @@ const ItemPagination = (props) => {
     }
 
     useEffect(()=>{
+        localStorage.setItem('currentPage', currentPage);
         props.onGetCurrentPage(currentPage)
     }, [currentPage])
 
