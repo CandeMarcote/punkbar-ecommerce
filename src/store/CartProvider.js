@@ -1,10 +1,12 @@
 import { useState } from "react";
 import CartContext from "./cart-context";
+import FavoritesContext from "./favorites-context";
 
 const CartProvider = (props) => {
     const [cartProducts, setCartProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-
+    const [favorites, setFavorites] = useState([]);
+    const [favoritesAmount, setFavoritesAmount] = useState(0);
 
     function AddItemToCartHandler (item) {
         const updatedTotalAmount = totalAmount + item.amount;
@@ -48,17 +50,46 @@ const CartProvider = (props) => {
         setTotalAmount(updatedTotalAmount)
     }
 
-    const cartContext ={
+    function toggleFavoriteHandler(item){
+      const existingItemIndex = favorites.findIndex(element => element.id === item.id);
+      const existingItem = favorites[existingItemIndex];
+      let updatedItems = undefined;
+      let updatedTotalAmount = undefined;
+
+      if(!existingItem) {
+        updatedItems = [...favorites, item];
+        updatedTotalAmount = favoritesAmount + 1;
+          
+      } else {
+        updatedItems = favorites.filter(element => element.id !== item.id);
+        updatedTotalAmount = favoritesAmount - 1;
+      }
+      setFavorites(updatedItems)
+      setFavoritesAmount(updatedTotalAmount)
+
+    }
+
+    const cartContext = {
         items: cartProducts,
         totalAmount: totalAmount,
         addItem: AddItemToCartHandler,
         removeItem: removeItemFromCart,
     };
 
+    const favoritesContext = {
+      items: favorites,
+      amount: favoritesAmount,
+      toggleItem: toggleFavoriteHandler,
+    }
+
   return (
-    <CartContext.Provider value={cartContext}>
-        {props.children}
-    </CartContext.Provider>
+      <>
+        <CartContext.Provider value={cartContext}>
+        <FavoritesContext.Provider value={favoritesContext}>
+            {props.children}
+        </FavoritesContext.Provider>
+        </CartContext.Provider>
+      </>
   )
 }
 
