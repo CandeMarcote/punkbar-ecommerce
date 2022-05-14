@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const amountOfItemsPerPage = 10;
 const totalAmount = 325;
@@ -34,7 +34,9 @@ const ItemPagination = (props) => {
         setCurrentPage(lastPage)
     }
 
-    props.onGetCurrentPage(currentPage)
+    useEffect(()=>{
+        props.onGetCurrentPage(currentPage)
+    }, [currentPage])
 
     return (
         <div>

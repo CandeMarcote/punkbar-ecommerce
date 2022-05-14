@@ -3,11 +3,10 @@ import classes from './Item.module.css';
 import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
-import FavoritesContext from '../../store/favorites-context';
 
 const Item = ({product}) => {
-    const cartCtx = useContext(CartContext);
-    const favoritesCtx = useContext(FavoritesContext);
+    const cartCtx = useContext(CartContext)
+    
     const [showDetail, setShowDetail] = useState(false);
     
     function showDetailHandler() {
@@ -28,20 +27,20 @@ const Item = ({product}) => {
             abv: product.abv,
             img: product.img,
             amount,
-        });
-    }
-
-    function toggleFavoritesHandler() {
-        favoritesCtx.toggleItem({
-            id: product.id,
-            name: product.name,
-            description: product.description,
-            price: product.price,
-            ibu: product.ibu,
-            abv: product.abv,
-            img: product.img,
         })
     }
+
+    // function toggleFavoritesHandler() {
+    //     favoritesCtx.toggleItem({
+    //         id: product.id,
+    //         name: product.name,
+    //         description: product.description,
+    //         price: product.price,
+    //         ibu: product.ibu,
+    //         abv: product.abv,
+    //         img: product.img,
+    //     })
+    // }
     
   return (
       <>

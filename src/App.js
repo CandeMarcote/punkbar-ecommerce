@@ -8,15 +8,13 @@ import Favorites from './pages/Favorites';
 
 import Header from './components/layout/Header';
 import CartProvider from './store/CartProvider';
-import FavoritesProvider from './store/FavoritesProvider';
 
 const App = () => {
 
   return (
     <>
-      <Header />
       <CartProvider>
-        <FavoritesProvider>
+      <Header />
       <main>
         <Switch>
           <Route path='/home' exact>
@@ -42,7 +40,6 @@ const App = () => {
           </Route>
         </Switch>
       </main>
-      </FavoritesProvider>
       </CartProvider>
     </>
   )

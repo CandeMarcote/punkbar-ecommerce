@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
-import FavoritesContext from '../../store/favorites-context';
+import React from 'react';
 
 
 const FavoriteItem = ({item: {name, price, ibu, abv, description}}) => {
-    const favoritesCtx = useContext(FavoritesContext);
     
   return (
     <div>

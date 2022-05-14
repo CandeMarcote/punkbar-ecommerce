@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import HeaderCartButton from '../Cart/HeaderCartButton';
 import classes from './styles/Header.module.css';
 
-const Header = (props) => {
+const Header = () => {
   return (
   <header className={classes.header}>
     <NavLink to='/home' activeClassName={classes.active}><div>Logo</div></NavLink>
@@ -15,7 +15,7 @@ const Header = (props) => {
             <li><NavLink to='/burgers'>Burgers</NavLink></li>
             <li><NavLink to='/favorites'>Favorites</NavLink></li>
             </div>
-            <li><NavLink to='/cart' activeClassName={classes.active}><HeaderCartButton onShowCart={props.onShowCart}/></NavLink></li>
+            <li><NavLink to='/cart' activeClassName={classes.active}><HeaderCartButton/></NavLink></li>
         </ul>
     </nav>
   </header>

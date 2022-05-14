@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ItemFilter = (props) => {
   const [filterInput, setFilterInput] = useState('')
@@ -6,7 +6,10 @@ const ItemFilter = (props) => {
   function inputChangeHandler(e) {
     setFilterInput(e.target.value);
   }
-  props.onGetSearchValue(filterInput)
+
+  useEffect(()=>{
+    props.onGetSearchValue(filterInput)
+  }, [])
 
   return (
     <div>
