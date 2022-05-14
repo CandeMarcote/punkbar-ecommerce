@@ -18,7 +18,6 @@ const ItemListContainer = () => {
         setSearchValue(val)
     }
     
-    console.log(Boolean(searchValue))
     let getFetch = async (page) => {
         let res = undefined;
         setIsLoading(true)
