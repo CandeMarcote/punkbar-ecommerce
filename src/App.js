@@ -7,13 +7,13 @@ import Cart from './pages/Cart';
 import Favorites from './pages/Favorites';
 
 import Header from './components/layout/Header';
-import CartProvider from './store/CartProvider';
+import ContextProvider from './store/ContextProvider';
 
 const App = () => {
 
   return (
     <>
-      <CartProvider>
+      <ContextProvider>
       <Header />
       <main>
         <Switch>
@@ -40,7 +40,7 @@ const App = () => {
           </Route>
         </Switch>
       </main>
-      </CartProvider>
+      </ContextProvider>
     </>
   )
 }

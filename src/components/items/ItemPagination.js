@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const amountOfItemsPerPage = 10;
-const totalAmount = 325;
+const totalAmount = 330;
 
 const ItemPagination = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -10,7 +10,7 @@ const ItemPagination = (props) => {
         const nextPage = currentPage + 1;
         const firstIndex = nextPage * amountOfItemsPerPage;
 
-        if(firstIndex >= totalAmount) {
+        if(firstIndex > totalAmount) {
             return;
         }
         setCurrentPage(nextPage);
@@ -20,14 +20,14 @@ const ItemPagination = (props) => {
         const prevPage = currentPage - 1;
         const firstIndex = prevPage * amountOfItemsPerPage;
 
-        if(firstIndex < 0) {
+        if(firstIndex < 1) {
             return;
         }
         setCurrentPage(prevPage);
     }
 
     function goToFirstPage() {
-        setCurrentPage(0)
+        setCurrentPage(1)
     }
     function goToLastPage() {
         const lastPage = (totalAmount / amountOfItemsPerPage).toFixed();

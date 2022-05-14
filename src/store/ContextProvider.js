@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CartContext from "./cart-context";
 
-const CartProvider = (props) => {
+const ContextProvider = (props) => {
     const [cartProducts, setCartProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
 
@@ -48,7 +48,7 @@ const CartProvider = (props) => {
         setTotalAmount(updatedTotalAmount)
     }
 
-    const cartContext ={
+    const context ={
         items: cartProducts,
         totalAmount: totalAmount,
         addItem: AddItemToCartHandler,
@@ -56,10 +56,10 @@ const CartProvider = (props) => {
     };
 
   return (
-    <CartContext.Provider value={cartContext}>
+    <CartContext.Provider value={context}>
         {props.children}
     </CartContext.Provider>
   )
 }
 
-export default CartProvider;
+export default ContextProvider;
