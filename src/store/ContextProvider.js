@@ -50,9 +50,6 @@ const ContextProvider = (props) => {
         setTotalAmount(updatedTotalAmount)
     }
 
-<<<<<<< HEAD:src/store/ContextProvider.js
-    const context ={
-=======
     function toggleFavoriteHandler(item){
       const existingItemIndex = favorites.findIndex(element => element.id === item.id);
       const existingItem = favorites[existingItemIndex];
@@ -73,7 +70,6 @@ const ContextProvider = (props) => {
     }
 
     const cartContext = {
->>>>>>> favorites:src/store/CartProvider.js
         items: cartProducts,
         totalAmount: totalAmount,
         addItem: AddItemToCartHandler,
@@ -87,11 +83,6 @@ const ContextProvider = (props) => {
     }
 
   return (
-<<<<<<< HEAD:src/store/ContextProvider.js
-    <CartContext.Provider value={context}>
-        {props.children}
-    </CartContext.Provider>
-=======
       <>
         <CartContext.Provider value={cartContext}>
         <FavoritesContext.Provider value={favoritesContext}>
@@ -99,7 +90,6 @@ const ContextProvider = (props) => {
         </FavoritesContext.Provider>
         </CartContext.Provider>
       </>
->>>>>>> favorites:src/store/CartProvider.js
   )
 }
 
