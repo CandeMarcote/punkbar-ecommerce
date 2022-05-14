@@ -3,9 +3,11 @@ import classes from './Item.module.css';
 import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
+import FavoritesContext from '../../store/favorites-context';
 
 const Item = ({product}) => {
-    const cartCtx = useContext(CartContext)
+    const cartCtx = useContext(CartContext);
+    const favoritesCtx = useContext(FavoritesContext);
     
     const [showDetail, setShowDetail] = useState(false);
     
@@ -30,17 +32,19 @@ const Item = ({product}) => {
         })
     }
 
-    // function toggleFavoritesHandler() {
-    //     favoritesCtx.toggleItem({
-    //         id: product.id,
-    //         name: product.name,
-    //         description: product.description,
-    //         price: product.price,
-    //         ibu: product.ibu,
-    //         abv: product.abv,
-    //         img: product.img,
-    //     })
-    // }
+    function toggleFavoriteHandler() {
+        favoritesCtx.toggleItem({
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            ibu: product.ibu,
+            abv: product.abv,
+            img: product.img,
+        })
+    }
+
+
     
   return (
       <>
@@ -53,7 +57,7 @@ const Item = ({product}) => {
             </div>
             <div>
                 <ItemForm onAddToCart={addToCartHandler} />
-                <button>{'<3'}</button>
+                <button onClick={toggleFavoriteHandler}>{'<3'}</button>
 
             </div>
             <div className={classes.imgContainer} onClick={showDetailHandler}>
