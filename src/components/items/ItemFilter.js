@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const ItemFilter = (props) => {
   const [filterInput, setFilterInput] = useState('')
@@ -7,15 +7,16 @@ const ItemFilter = (props) => {
     setFilterInput(e.target.value);
   }
 
-  useEffect(()=>{
+  function submitHandler(e) {
+    e.preventDefault();
     props.onGetSearchValue(filterInput)
-  }, [])
-
+  }
+  
   return (
-    <div>
-      <label htmlFor='search'>Buscar </label>
-      <input type="text" id='search' onChange={inputChangeHandler}/>
-    </div>
+    <form onSubmit={submitHandler}>
+      <button type='submit'>Search</button>
+      <input type="text" id='search' placeholder='type a name here' onChange={inputChangeHandler}/>
+    </form>
   )
 }
 

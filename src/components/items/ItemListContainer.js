@@ -16,16 +16,20 @@ const ItemListContainer = () => {
 
     function getSearchValue(val) {
         setSearchValue(val)
-    } 
-
-    useEffect(()=> {
-        getFetch(currentPage);
-    }, [currentPage])
+    }
     
+    console.log(Boolean(searchValue))
     let getFetch = async (page) => {
+        let res = undefined;
         setIsLoading(true)
-        const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`;
-        let res = await getRequestData(url);
+        if (searchValue) {
+            const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}`;
+            res = await getRequestData(url)
+        } else {
+            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`;
+            res = await getRequestData(url);
+        }
+
         const transformData = res.map(product => {
             return {
                 id: product.id,
@@ -39,7 +43,11 @@ const ItemListContainer = () => {
         })
         setProducts(transformData)
         setIsLoading(false)
-    }    
+    }
+
+    useEffect(()=> {
+        getFetch(currentPage);
+    }, [currentPage, searchValue])
 
   return (
     <>

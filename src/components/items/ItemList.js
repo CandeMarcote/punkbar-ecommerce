@@ -1,6 +1,5 @@
 import React from 'react';
 import Item from './Item';
-import ItemPagination from './ItemPagination';
 import Card from '../UI/Card';
 
 const itemList = (props) => {
