@@ -28,32 +28,39 @@ const ContextProvider = (props) => {
               };
               updatedItems = [...cartProducts];
               updatedItems[existingItemIndex] = updatedItem;
-            } else {
-              updatedItems = cartProducts.concat(item);
-            }
-            setCartProducts(updatedItems)
-            setTotalAmount(updatedTotalAmount)
-          }
+        } else {
+          updatedItems = cartProducts.concat(item);
+       }
+      setCartProducts(updatedItems)
+      setTotalAmount(updatedTotalAmount)
+    }
           
-          function removeItemFromCart (id) {
-            const updatedTotalAmount = totalAmount - 1.
-            const existingProductIndex = cartProducts.findIndex((product) => product.id === id);
-            const existingProduct = cartProducts[existingProductIndex];
-            
-            let updatedProducts = undefined;
-            
-            if(existingProduct.amount > 1) {
-              const updatedProduct = {
-                ...existingProduct,
-                amount: existingProduct.amount - 1
-          }
+    function removeItemFromCart (id) {
+      const updatedTotalAmount = totalAmount - 1
+      const existingProductIndex = cartProducts.findIndex((product) => product.id === id);
+      const existingProduct = cartProducts[existingProductIndex];
+      
+      let updatedProducts = undefined;
+      
+      if(existingProduct.amount > 1) {
+        const updatedProduct = {
+          ...existingProduct,
+          amount: existingProduct.amount - 1
+        }
           updatedProducts = [...cartProducts];
           updatedProducts[existingProductIndex] = updatedProduct;
-        } else {
+      } else {
           updatedProducts = cartProducts.filter((product) => product.id !== id)
-        }
+      }
+      setCartProducts(updatedProducts);
+      setTotalAmount(updatedTotalAmount)
+    }
+
+      function removeAllUnits(id) {
+        const updatedProducts = cartProducts.filter((product) => product.id !== id);
+        const updatedTotalAmount = totalAmount - 1;
         setCartProducts(updatedProducts);
-        setTotalAmount(updatedTotalAmount)
+        setTotalAmount(updatedTotalAmount);        
       }
       
       function toggleFavoriteHandler(item){
@@ -75,6 +82,7 @@ const ContextProvider = (props) => {
         totalAmount: totalAmount,
         addItem: AddItemToCartHandler,
         removeItem: removeItemFromCart,
+        removeAllUnits: removeAllUnits,
       };
       
       const favoritesContext = {

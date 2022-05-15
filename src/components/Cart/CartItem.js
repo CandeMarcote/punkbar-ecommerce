@@ -1,9 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import classes from './CartItem.module.css';
 import CartContext from '../../store/cart-context';
+import ItemDetail from '../items/ItemDetail';
 
 const CartItem = ({product}) => {
     const cartCtx = useContext(CartContext);
+    const [showDetail, setShowDetail] = useState(false);
+    
+    function hideDetailHandler() {
+        setShowDetail(false)
+    }
+
+    function showDetailHandler() {
+        setShowDetail(true);
+    }
 
     function removeItemHandler() {
         cartCtx.removeItem(product.id)
@@ -22,8 +32,15 @@ const CartItem = ({product}) => {
         })
     }
 
+    function removeAllItemsHandler(){
+        cartCtx.removeAllUnits(product.id)
+    }
+
   return (
-    <div className={classes.itemContainer}>
+      <>
+      <br />
+      <hr />
+    <div className={classes.itemContainer} onClick={showDetailHandler}>
         <div>
             <p>{product.name}</p>
             <p>${product.price.toFixed(2)}</p>
@@ -32,11 +49,18 @@ const CartItem = ({product}) => {
                 <p>{product.amount}</p>
                 <button onClick={addItemHandler}> + </button>
             </div>
+            <div>
+                <button onClick={removeAllItemsHandler}>Remove all</button>
+            </div>
         </div>
         <div>
             <p className={classes.totalPrice}>$ {(product.amount*product.price).toFixed(2)}</p>
         </div>
     </div>
+        {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
+    <hr />
+    <br />
+    </>
   )
 }
 

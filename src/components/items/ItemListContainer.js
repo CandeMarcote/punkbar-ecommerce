@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import getRequestData from '../../services/services';
 import ItemFilter from './ItemFilter';
 import ItemList from './ItemList';
 import ItemPagination from './ItemPagination';
+import FavoritesContext from '../../store/favorites-context';
 
 const ItemListContainer = () => {
+    const favorites = useContext(FavoritesContext).items
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchValue, setSearchValue] = useState('');
+    const [filterFavorites, setFilterFavorites] = useState(false)
 
     function getCurrentPageHandler(page) {
         setCurrentPage(page)
@@ -16,6 +19,14 @@ const ItemListContainer = () => {
 
     function getSearchValue(val) {
         setSearchValue(val)
+    }
+
+    function filterFavoritesHandler() {
+        setFilterFavorites(true);
+    }
+
+    function showAllHandler() {
+        setFilterFavorites(false);
     }
     
     let getFetch = async (page) => {
@@ -51,8 +62,11 @@ const ItemListContainer = () => {
   return (
     <>
         <ItemPagination onGetCurrentPage={getCurrentPageHandler}/>
-        <ItemFilter onGetSearchValue={getSearchValue}/>
-        {!isLoading && products.length > 0 && <ItemList products={products}/>}
+        <ItemFilter onGetSearchValue={getSearchValue} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
+        {isLoading && <p>Spinner</p>}
+        {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
+        {!isLoading && filterFavorites && <ItemList products={favorites}/> }
+        {!isLoading && !products.length && <p>No results...</p>}
     </>
   )
 }

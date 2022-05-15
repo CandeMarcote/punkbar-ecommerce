@@ -1,4 +1,4 @@
-Story 1: Main page - Application look and feel
+<!-- Story 1: Main page - Application look and feel
  * Implement a topbar that must be always visible, even if the user scrolls down
   - Topbar should have the bar's name in the center
  * Display beer's information
@@ -9,10 +9,10 @@ Story 1: Main page - Application look and feel
  * Paginate results
   - show 10 beers per page
   - quick jump to first / last page
-  - remember last viewed page
+  - remember last viewed page -->
  * NTH: display spinner while loading images
 
-Story 2: Implement order page
+<!-- Story 2: Implement order page
  * Configure router
   - Add routes for home and order pages
   - Any invalid route should redirect to home
@@ -25,7 +25,7 @@ Story 2: Implement order page
   - Display current in cart amount of each beer
   - Buttons should add or remove 1 unit
  * Order page summary
-  - Display name and amount of each ordered beer
+  - Display name and amount of each ordered beer -->
   - Add remove button. This button removes all units of the selected beer
  * NTH: click on ordered beer opens description overview (modal)
  * NTH: click on topbar redirects to home page

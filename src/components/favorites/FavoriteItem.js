@@ -1,15 +1,22 @@
 import React from 'react';
+import ToggleFavorite from './ToggleFavorite';
 
 
-const FavoriteItem = ({item: {name, price, ibu, abv, description}}) => {
+const FavoriteItem = ({ item }) => {
     
   return (
     <div>
-        <p>{name}</p>
-        <p>{ibu}</p>
-        <p>{abv}</p>
-        <p>{price}</p>
-        <p>{description}</p>
+      <hr />
+      <br />
+        <p>{item.name}</p>
+        <p>{item.ibu}</p>
+        <p>{item.abv}</p>
+        <p>{item.price}</p>
+        <p>{item.description}</p>
+        <ToggleFavorite product={item}/>
+        <br />
+        <hr />
+        <br />
     </div>
   )
 }
