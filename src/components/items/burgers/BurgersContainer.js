@@ -1,31 +1,26 @@
 import React, { useEffect, useContext, useState } from 'react';
 import getRequestData from '../../../services/services';
 import BurgersList from './BurgersList';
-import ItemFilter from '../ItemFilter';
+import BurgerPagination from './BurgerPagination';
 import FavoritesContext from '../../../store/favorites-context';
+import FilterFavoriteBurgers from './FilterFavoriteBurgers';
+
+const itemsPerPage = 10;
 
 const BurgersContainer = () => {
-    const [burgers, setBurgers] = useState([]);
+    const [allBurgers, setAllBurgers] = useState([]);
+    const [burgersOnShow, setBurgersOnShow] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [index, setIndex] = useState(0);
     const [searchValue, setSearchValue] = useState('');
-    const [filterFavorites, setFilterFavorites] = useState(false);
+    const [filterFavorites, setFilterFavorites] = useState(false)
 
-    const faveBurgers = useContext(FavoritesContext).items.filter(item => {
+    const favoriteBurgers = useContext(FavoritesContext);
+
+    const faveBurgers = favoriteBurgers.items.filter(item => {
         return item.type === 'burger'}
     );
-
-    function filterByNameHandler() {
-        const itemIndex = burgers.filter(item => {
-            return item.name.toLowerCase().trim().includes(searchValue);
-        });
-
-        const item = burgers[itemIndex];
-        console.log(item.name.includes(searchValue).toLowerCase().trim())
-    }
-
-    function getSearchValue(val) {
-        setSearchValue(val)
-    }
 
     function filterFavoritesHandler() {
         setFilterFavorites(true);
@@ -33,6 +28,15 @@ const BurgersContainer = () => {
 
     function showAllHandler() {
         setFilterFavorites(false);
+    }
+
+    function getSearchValueHandler(name) {
+        setSearchValue(name);
+    }
+
+    function getIndexAndPageHandler(index, page) {
+        setCurrentPage(page);
+        setIndex(index);
     }
 
     let getFetch = async () => {
@@ -51,21 +55,30 @@ const BurgersContainer = () => {
                 img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
             }
         })
-        setBurgers(transformData);
+        setAllBurgers(transformData);
+        setBurgersOnShow([...transformData].splice(index, itemsPerPage));
         setIsLoading(false);
+        if(searchValue.trim().length > 0 ) {
+            const existingItem = allBurgers.filter(item => {
+                const name = item.name.toLowerCase().trim();
+                return name.includes(searchValue.toLowerCase().trim())
+            })
+            setBurgersOnShow(existingItem);
+        }
     }
 
     useEffect(()=> {
         getFetch();
-    }, []);
+    }, [currentPage, index, searchValue]);
 
   return (
     <>
-    <ItemFilter onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} onGetSearchValue={getSearchValue} onFilterByName={filterByNameHandler}/>
+    <BurgerPagination onGetIndexAndPage={getIndexAndPageHandler}/>
+    <FilterFavoriteBurgers onFilterByName={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} />
     {isLoading && <p>Spinner</p>}
-    {!isLoading && burgers.length > 0 && <BurgersList products={burgers}/>}
-    {!isLoading && filterFavorites && <BurgersList products={faveBurgers}/> }
-    {!isLoading && !burgers.length && <p>No results...</p>}
+    {!isLoading && allBurgers.length > 0 && !filterFavorites && <BurgersList products={burgersOnShow}/>}
+    {!isLoading && faveBurgers.length > 0 && filterFavorites && <BurgersList products={faveBurgers}/> }
+    {!isLoading && !allBurgers.length || !faveBurgers || searchValue && <p>No results...</p>}
     </>
   )
 }

@@ -4,7 +4,7 @@ import ToggleFavorite from '../../favorites/ToggleFavorite';
 
 const BurgerDetail = ({product, onClose}) => {
     const ingredients = product.ingredients.map(ingredient => {
-        return <div>{ingredient}</div> 
+        return <p key={Math.random()}>{ingredient}</p> 
     })
   return (
     <Modal onClose={onClose}>
@@ -12,7 +12,7 @@ const BurgerDetail = ({product, onClose}) => {
             <h3>{product.name}</h3>
             <img src={product.img} alt="Buzz beer" width='30%'/>
             <div>
-                <p>Ingredients: </p>
+                <div>Ingredients: {ingredients}</div>
             </div>
             <ToggleFavorite product={product}/>
         </div>
