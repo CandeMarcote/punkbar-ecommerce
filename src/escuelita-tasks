@@ -47,7 +47,7 @@
   - Add a filter to search beers by ibu
   ----------- Add greater / less than selected amount toggle (??)
 
-Story 4: Don't drink with an empty stomach
+<!-- Story 4: Don't drink with an empty stomach
  * Add burguer menu in the topbar
   - click to open menu
   ------------show mask while menu is open (??)
@@ -65,7 +65,7 @@ Story 4: Don't drink with an empty stomach
   - show star/heart icon to select as favorite. Always visible
  * Add favorite and name filters
  * Add burguers paginator
- * Show no resuls message
+ * Show no resuls message -->
 
 Story 5: Login page
  * Implement login page

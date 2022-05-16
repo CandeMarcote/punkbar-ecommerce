@@ -12,9 +12,10 @@
 
 .active {
     text-decoration: underline;
-    color: green;
+    color: darkred;
 }
 
 a{
     text-decoration: none;
+    color: black;
 }
