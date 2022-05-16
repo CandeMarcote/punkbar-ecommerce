@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import BurgersContainer from '../components/items/burgers/BurgersContainer';
 
 const Burgers = () => {
   return (
-    <div>Burgers</div>
+    <div><BurgersContainer /></div>
   )
 }
 

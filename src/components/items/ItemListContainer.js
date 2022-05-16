@@ -49,6 +49,7 @@ const ItemListContainer = () => {
                 abv: product.abv,
                 price: product.ph,
                 img: product.image_url,
+                type: 'beer',
             }
         })
         setProducts(transformData)

@@ -26,6 +26,7 @@ const Item = ({product}) => {
             ibu: product.ibu,
             abv: product.abv,
             img: product.img,
+            type: product.type,
             amount,
         })
     }
@@ -34,7 +35,7 @@ const Item = ({product}) => {
       <>
         <div className={classes.item}>
             <div onClick={showDetailHandler}>
-                <p>{product.name}</p>
+                <h4>{product.name}</h4>
                 <p>$ {product.price}</p>
                 <p>IBU: {product.ibu}</p>
                 <p>ABV: {product.abv}</p>

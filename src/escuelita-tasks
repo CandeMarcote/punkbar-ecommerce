@@ -25,32 +25,32 @@
   - Display current in cart amount of each beer
   - Buttons should add or remove 1 unit
  * Order page summary
-  - Display name and amount of each ordered beer -->
+  - Display name and amount of each ordered beer
   - Add remove button. This button removes all units of the selected beer
- * NTH: click on ordered beer opens description overview (modal)
  * NTH: click on topbar redirects to home page
+ * NTH: click on ordered beer opens description overview (modal) -->
 
-Story 3: Filters and favorites
+<!-- Story 3: Filters and favorites
  * Add beer name filter
   - Search beers that match the input value
  * Select favourite beers
   - Add star/heart beside each beer in the list
   - Icon should be always visible (not just in modal)
   - Click to add or remove from favorites
-  - Color/fill change when clicking the icon
  * Add favourites filter
   - Click to toggle display only favourite beers in the list
   - Name filter should only apply to the currently visible list
  * Show no results message
-  - whenever the list of beers goes empty, show a message
+  - whenever the list of beers goes empty, show a message  -->
+  - Color/fill change when clicking the icon
  * NTH: ibu filter
   - Add a filter to search beers by ibu
-  - Add greater / less than selected amount toggle
+  ----------- Add greater / less than selected amount toggle (??)
 
 Story 4: Don't drink with an empty stomach
  * Add burguer menu in the topbar
   - click to open menu
-  - show mask while menu is open
+  ------------show mask while menu is open (??)
   - click on mask closes the menu
   - entries: beers page / burguers page / order page
  * Implement burguers page

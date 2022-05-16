@@ -10,9 +10,7 @@ const ContextProvider = (props) => {
     useEffect(()=> {
       localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
       localStorage.setItem('favorites', JSON.stringify(favorites));
-    }, [cartProducts, favorites])
-
-    
+    }, [cartProducts, favorites]);
     
     function AddItemToCartHandler (item) {
       const updatedTotalAmount = totalAmount + item.amount;
@@ -56,39 +54,47 @@ const ContextProvider = (props) => {
       setTotalAmount(updatedTotalAmount)
     }
 
-      function removeAllUnits(id) {
-        const updatedProducts = cartProducts.filter((product) => product.id !== id);
-        const updatedTotalAmount = totalAmount - 1;
-        setCartProducts(updatedProducts);
-        setTotalAmount(updatedTotalAmount);        
-      }
+    function removeAllUnits(id) {
+      const updatedProducts = cartProducts.filter((product) => product.id !== id);
+      const updatedTotalAmount = totalAmount - 1;
+      setCartProducts(updatedProducts);
+      setTotalAmount(updatedTotalAmount);        
+    }
+
+    function clearCart() {
+      const clearCart = [];
+      const clearAmount = 0;
+      setCartProducts(clearCart);
+      setTotalAmount(clearAmount);
+    }
+    
+    function toggleFavoriteHandler(item){
+      const existingItemIndex = favorites.findIndex(element => element.id === item.id);
+      const existingItem = favorites[existingItemIndex];
+      let updatedItems = undefined;
       
-      function toggleFavoriteHandler(item){
-        const existingItemIndex = favorites.findIndex(element => element.id === item.id);
-        const existingItem = favorites[existingItemIndex];
-        let updatedItems = undefined;
+      if(!existingItem) {
+        updatedItems = [...favorites, item];
         
-        if(!existingItem) {
-          updatedItems = [...favorites, item];
-          
-        } else {
-          updatedItems = favorites.filter(element => element.id !== item.id);
-        }
-        setFavorites(updatedItems)
+      } else {
+        updatedItems = favorites.filter(element => element.id !== item.id);
       }
-      
-      const cartContext = {
-        items: cartProducts,
-        totalAmount: totalAmount,
-        addItem: AddItemToCartHandler,
-        removeItem: removeItemFromCart,
-        removeAllUnits: removeAllUnits,
-      };
-      
-      const favoritesContext = {
-        items: favorites,
-        toggleItem: toggleFavoriteHandler,
-      }
+      setFavorites(updatedItems)
+    }
+    
+    const cartContext = {
+      items: cartProducts,
+      totalAmount: totalAmount,
+      addItem: AddItemToCartHandler,
+      removeItem: removeItemFromCart,
+      removeAllUnits: removeAllUnits,
+      clearCart: clearCart,
+    };
+    
+    const favoritesContext = {
+      items: favorites,
+      toggleItem: toggleFavoriteHandler,
+    }
 
   return (
       <>

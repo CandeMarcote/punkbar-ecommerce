@@ -14,6 +14,8 @@ const ToggleFavorite = ({product}) => {
             ibu: product.ibu,
             abv: product.abv,
             img: product.img,
+            ingredients: product.ingredients,
+            type: product.type,
         })
     }
     
