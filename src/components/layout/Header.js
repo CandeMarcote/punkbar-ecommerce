@@ -1,13 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import HeaderCartButton from '../Cart/HeaderCartButton';
 import classes from './styles/Header.module.css';
 import BurgerMenu from '../UI/BurgerMenu';
 
 const Header = (props) => {
+  let history = useHistory();
 
   function loginHandler(){
     props.onLogin(false)
+    history.push('/login')
   }
 
   return (

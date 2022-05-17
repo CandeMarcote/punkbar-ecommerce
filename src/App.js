@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
 import Beers from './pages/Beers';
@@ -17,18 +17,25 @@ const App = () => {
     setIsLoggedIn(logStatus);
   }
 
+  useEffect(()=>{
+    localStorage.setItem('isLoggedIn', isLoggedIn)
+  })
+
   return (
     <>
       <ContextProvider>
-      <Header onLogin={loginHandler}/>
+      <Header onLogin={loginHandler} logStatus={isLoggedIn}/>
       <main>
-        {!isLoggedIn && (
         <Switch>
           <Route path='/login'>
-            <Login onLogin={loginHandler}/>
+            <Login onLogin={loginHandler} logStatus={isLoggedIn}/>
           </Route>
+
+        {!isLoggedIn && <Route path='/*'>
+            <Redirect to='/login'/>
+          </Route>}
         </Switch>
-        )}
+
         {isLoggedIn && (
           <Switch>
               <Route path='/home' exact>
@@ -54,12 +61,7 @@ const App = () => {
             <Route path='/favorites'>
               <Favorites />
             </Route>
-
-            <Route path='/*'>
-              <Redirect to='/home'/>
-            </Route>
           </Switch>
-        
         )}           
       </main>
       </ContextProvider>

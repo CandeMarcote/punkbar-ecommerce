@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
 
 
@@ -6,7 +7,7 @@ const userEmail = '123@gmail.com';
 const userPassword = '123456';
 
 const Login = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false)
+  let history = useHistory();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -17,25 +18,21 @@ const Login = (props) => {
     const enteredPassword = passwordInputRef.current.value;
 
     if(enteredEmail === userEmail && enteredPassword === userPassword) {
-      setIsLoggedIn(true);
+      props.onLogin(true);
+      history.push('/home')
     } else {
       return;
     }
   }
 
   function logoutHandler(e) {
-    setIsLoggedIn(false);
+    props.onLogin(false);
   }
-
-  useEffect(()=>{
-    localStorage.setItem('isLoggedIn', isLoggedIn);
-    props.onLogin(isLoggedIn);
-  }, [isLoggedIn])
 
 
   return (
     <>
-    {!isLoggedIn && (
+    {!props.logStatus && (
       <Card>
         <h3>Login</h3>
         <br />
@@ -50,11 +47,11 @@ const Login = (props) => {
             <input type="password" id="password" placeholder='type here' ref={passwordInputRef} />
           </div>
           <br />
-          {!isLoggedIn && <button type='submit'>Log in</button>}
+          {!props.logStatus && <button type='submit'>Log in</button>}
 
         </form>
       </Card>)}
-      {isLoggedIn && (
+      {props.logStatus && (
       <Card>
         <h2>You're logged in</h2>
         <button type='submit' onClick={logoutHandler}>Log out</button>
