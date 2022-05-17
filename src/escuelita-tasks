@@ -67,14 +67,14 @@
  * Add burguers paginator
  * Show no resuls message -->
 
-Story 5: Login page
+<!-- Story 5: Login page
  * Implement login page
   - add route for login page
   - this route can be accessed without athorization
  * Restrict other routes
   - all other routes must check for logged in user
  * Implement basic user - password login
- * Add logout option in menu
+ * Add logout option in menu -->
 
 Story 6: Error handling
  * Implement connection error page

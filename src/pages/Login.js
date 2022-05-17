@@ -1,26 +1,51 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
+import classes from './Login.module.css'
 
 
 const userEmail = '123@gmail.com';
 const userPassword = '123456';
+const userName = '123';
 
 const Login = (props) => {
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [emailWasTouched, setEmailWasTouched] = useState(false);
+  const [passwordWasTouched, setPasswordWasTouched] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
+
   let history = useHistory();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+
+  function emailChangeHandler(e){
+    setEmailInput(e.target.value)
+    setFormIsValid(true)
+  }
+
+  function passwordChangeHandler(e){
+    setPasswordInput(e.target.value)
+    setFormIsValid(true)
+  }
+
+  function emailBlurHandler() {
+    setEmailWasTouched(true);
+  }
+
+  function passwordBlurHandler() {
+    setPasswordWasTouched(true);
+  }
 
   function loginHandler(e) {
     e.preventDefault();
+    setEmailWasTouched(true);
+    setPasswordWasTouched(true);
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-
-    if(enteredEmail === userEmail && enteredPassword === userPassword) {
+    if(emailInput === userEmail && passwordInput === userPassword || emailInput === userName && passwordInput === userPassword) {
+      setFormIsValid(true);
       props.onLogin(true);
-      history.push('/home')
+      history.push('/home');
     } else {
+      setFormIsValid(false);
       return;
     }
   }
@@ -39,16 +64,16 @@ const Login = (props) => {
         <form onSubmit={loginHandler}>
           <div>
             <label htmlFor="email">E-mail or username </label>
-            <input type="text" id='email' placeholder='type here' ref={emailInputRef} />
+            <input className={!emailInput && emailWasTouched? classes.invalid : ''} onBlur={emailBlurHandler} type="text" id='email' placeholder='type here' onChange={emailChangeHandler} />
           </div>
           <br />
           <div>
             <label htmlFor="password">Password </label>
-            <input type="password" id="password" placeholder='type here' ref={passwordInputRef} />
+            <input className={!passwordInput && passwordWasTouched? classes.invalid : ''} onBlur={passwordBlurHandler} type="password" id="password" placeholder='type here' onChange={passwordChangeHandler} />
           </div>
           <br />
-          {!props.logStatus && <button type='submit'>Log in</button>}
-
+          {!formIsValid && emailWasTouched && passwordWasTouched && <p>Your e-mail, username or password is incorrect!</p>}
+          {!props.logStatus && <button type='submit' disabled={!emailInput || !passwordInput}>Log in</button>}
         </form>
       </Card>)}
       {props.logStatus && (

@@ -11,15 +11,18 @@ const CartItem = ({product}) => {
         setShowDetail(false)
     }
 
-    function showDetailHandler() {
+    function showDetailHandler(e) {
         setShowDetail(true);
     }
 
-    function removeItemHandler() {
+    function removeItemHandler(e) {
+        e.stopPropagation();
         cartCtx.removeItem(product.id)
     }
 
-    function addItemHandler() {
+    function addItemHandler(e) {
+        e.stopPropagation();
+
         cartCtx.addItem({
             id: product.id,
             name: product.name,
