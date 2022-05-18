@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ToggleFavorite from './ToggleFavorite';
+import ItemDetail from '../items/ItemDetail';
 
 
 const FavoriteItem = ({ item }) => {
+  const [showDetail, setShowDetail] = useState(false);
+
+  function showDetailHandler(e){
+    e.stopPropagation();
+    setShowDetail(true);
+  }
+
+  function hideDetailHandler(e) {
+    e.stopPropagation();
+    setShowDetail(false);
+  }
     
   return (
-    <div>
+    <div onClick={showDetailHandler}>
       <hr />
       <br />
         <p>{item.name}</p>
@@ -17,6 +29,7 @@ const FavoriteItem = ({ item }) => {
         <br />
         <hr />
         <br />
+        {showDetail && <ItemDetail product={item} onClose={hideDetailHandler}/>}
     </div>
   )
 }

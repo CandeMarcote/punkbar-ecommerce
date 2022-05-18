@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import classes from './Item.module.css';
 import ItemDetail from './ItemDetail';
+import BurgerDetail from './burgers/BurgerDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
 import ToggleFavorite from '../favorites/ToggleFavorite';
@@ -28,11 +29,12 @@ const Item = ({product}) => {
             img: product.img,
             type: product.type,
             amount,
-        })
+        });
     }
 
   return (
       <>
+        {product.type === 'beer' && (
         <div className={classes.item}>
             <div onClick={showDetailHandler}>
                 <h4>{product.name}</h4>
@@ -40,15 +42,28 @@ const Item = ({product}) => {
                 <p>IBU: {product.ibu}</p>
                 <p>ABV: {product.abv}</p>
             </div>
-            <div>
-                <ItemForm onAddToCart={addToCartHandler} />
-                <ToggleFavorite product={product}/>
-            </div>
             <div className={classes.imgContainer} onClick={showDetailHandler}>
                 <img src={product.img} alt="A delicious beer" />
             </div>
+            {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
         </div>
-        {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
+        )}
+        {product.type === 'burger' && (
+        <div className={classes.item}>
+            <div onClick={showDetailHandler}>
+                <h4>{product.name}</h4>
+                <p>$ {product.price.toFixed(2)}</p>
+            </div>
+            <div className={classes.imgContainer} onClick={showDetailHandler}>
+                <img src={product.img} alt="Delicious burger" />
+            </div>
+            {showDetail && <BurgerDetail product={product} onClose={hideDetailHandler}/> }
+        </div>
+        )}
+        <div>
+            <ItemForm onAddToCart={addToCartHandler} />
+            <ToggleFavorite product={product}/>
+        </div>
     </>
   )
 }

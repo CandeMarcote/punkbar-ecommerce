@@ -1,11 +1,11 @@
 import React from 'react';
-import BurgerItem from './BurgerItem';
+import Item from '../Item';
 import Card from '../../UI/Card'
 
 const BurgersList = ({products}) => {
 
     const burgers = products.map(item => {
-        return <BurgerItem product={item} key={item.id} />
+        return <Item product={item} key={item.id} />
     })    
   return (
     <Card>

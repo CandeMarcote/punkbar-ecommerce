@@ -14,10 +14,14 @@
     height: auto;
     max-width: 65vw;
     padding: 2rem;
-    overflow: hidden;
 
     position: fixed;
-        top: calc(10rem + 50%);
+        top: 50%;
         left: 50%;
-    transform: translate(-50%, -20%);
+    transform: translate(-50%, -50%);
+}
+
+.modal img {
+    max-height: 25vh;
+    width: auto;
 }
