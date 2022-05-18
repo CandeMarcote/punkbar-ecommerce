@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import classes from './Item.module.css';
 import ItemDetail from './ItemDetail';
-import BurgerDetail from './burgers/BurgerDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
 import ToggleFavorite from '../favorites/ToggleFavorite';
@@ -45,9 +44,9 @@ const Item = ({product}) => {
             <div className={classes.imgContainer} onClick={showDetailHandler}>
                 <img src={product.img} alt="A delicious beer" />
             </div>
-            {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
         </div>
         )}
+
         {product.type === 'burger' && (
         <div className={classes.item}>
             <div onClick={showDetailHandler}>
@@ -57,13 +56,14 @@ const Item = ({product}) => {
             <div className={classes.imgContainer} onClick={showDetailHandler}>
                 <img src={product.img} alt="Delicious burger" />
             </div>
-            {showDetail && <BurgerDetail product={product} onClose={hideDetailHandler}/> }
         </div>
         )}
+
         <div>
             <ItemForm onAddToCart={addToCartHandler} />
             <ToggleFavorite product={product}/>
         </div>
+        {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
     </>
   )
 }

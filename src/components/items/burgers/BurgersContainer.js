@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import getRequestData from '../../../services/services';
-import BurgersList from './BurgersList';
+import ItemList from '../ItemList';
 import BurgerPagination from './BurgerPagination';
 import FavoritesContext from '../../../store/favorites-context';
 import FilterFavoriteBurgers from './FilterFavoriteBurgers';
@@ -76,8 +76,8 @@ const BurgersContainer = () => {
     <BurgerPagination onGetIndexAndPage={getIndexAndPageHandler}/>
     <FilterFavoriteBurgers onFilterByName={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} />
     {isLoading && <p>Spinner</p>}
-    {!isLoading && allBurgers.length > 0 && !filterFavorites && <BurgersList products={burgersOnShow}/>}
-    {!isLoading && faveBurgers.length > 0 && filterFavorites && <BurgersList products={faveBurgers}/> }
+    {!isLoading && allBurgers.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
+    {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
     {!isLoading && !allBurgers.length || !faveBurgers || searchValue && <p>No results...</p>}
     </>
   )
