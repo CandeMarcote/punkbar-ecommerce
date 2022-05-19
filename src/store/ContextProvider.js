@@ -74,9 +74,17 @@ const ContextProvider = (props) => {
       let updatedItems = undefined;
       
       if(!existingItem) {
-        updatedItems = [...favorites, item];
+        const updatedItem = {
+          ...existingItem,
+          faved: true,
+        }
+        updatedItems = [...favorites, updatedItem];
         
       } else {
+        const updatedItem = {
+          ...existingItem,
+          faved: false,
+        }
         updatedItems = favorites.filter(element => element.id !== item.id);
       }
       setFavorites(updatedItems)

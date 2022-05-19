@@ -17,7 +17,9 @@ const ToggleFavorite = ({product}) => {
         img: product.img,
         ingredients: product.ingredients,
         type: product.type,
+        faved: product.faved,
     })
+
     setIsFaved(!isFaved);
   }
   

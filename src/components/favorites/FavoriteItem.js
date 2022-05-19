@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ToggleFavorite from './ToggleFavorite';
 import ItemDetail from '../items/ItemDetail';
 
-
 const FavoriteItem = ({ item }) => {
   const [showDetail, setShowDetail] = useState(false);
 
@@ -17,20 +16,37 @@ const FavoriteItem = ({ item }) => {
   }
     
   return (
-    <div onClick={showDetailHandler}>
-      <hr />
-      <br />
-        <p>{item.name}</p>
-        <p>{item.ibu}</p>
-        <p>{item.abv}</p>
-        <p>{item.price}</p>
-        <p>{item.description}</p>
-        <ToggleFavorite product={item}/>
-        <br />
-        <hr />
-        <br />
-        {showDetail && <ItemDetail product={item} onClose={hideDetailHandler}/>}
-    </div>
+    <>
+      {item.type === 'beer' && 
+        <div onClick={showDetailHandler}>
+          <hr />
+          <br />
+            <h4>{item.name}</h4>
+            <p>IBU: {item.ibu}</p>
+            <p>ABV: {item.abv}</p>
+            <p>$ {item.price.toFixed(2)}</p>
+            <p>{item.description}</p>
+            <ToggleFavorite product={item}/>
+            <br />
+            <hr />
+            <br />
+            {showDetail && <ItemDetail product={item} onClose={hideDetailHandler}/>}
+        </div>
+      }
+      {item.type === 'burger' && (
+        <div onClick={showDetailHandler}>
+          <hr />
+          <br />
+          <h4>{item.name}</h4>
+          <p>$ {item.price.toFixed(2)}</p>
+          <ToggleFavorite product={item}/>
+          <br />
+          <hr />
+          <br />
+          {showDetail && <ItemDetail product={item} onClose={hideDetailHandler}/>}
+        </div>
+        )}
+    </>
   )
 }
 
