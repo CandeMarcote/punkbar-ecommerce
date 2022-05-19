@@ -61,7 +61,7 @@ const Item = ({product}) => {
 
         <div>
             <ItemForm onAddToCart={addToCartHandler} />
-            <ToggleFavorite product={product}/>
+            <ToggleFavorite product={product} favedStatus={product.faved}/>
         </div>
         {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
     </>

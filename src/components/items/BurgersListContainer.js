@@ -50,6 +50,7 @@ const BurgersContainer = () => {
                     ingredients: product.ingredients,
                     price: 10,
                     type: 'burger',
+                    faved: false,
                     img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
                 }
             });
@@ -67,6 +68,7 @@ const BurgersContainer = () => {
                     ingredients: product.ingredients,
                     price: 10,
                     type: 'burger',
+                    faved: false,
                     img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
                 }
             });
