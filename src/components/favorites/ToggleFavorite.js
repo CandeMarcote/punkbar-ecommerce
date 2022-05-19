@@ -1,7 +1,6 @@
 import { useContext, useState} from 'react';
 import FavoritesContext from '../../store/favorites-context';
 
-
 const ToggleFavorite = ({product}) => {
   const [isFaved, setIsFaved] = useState(false);
   const favoritesCtx = useContext(FavoritesContext);
