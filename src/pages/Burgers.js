@@ -1,9 +1,10 @@
 import React from 'react';
-import BurgersListContainer from '../components/items/BeersListContainer';
-
+import BurgersListContainer from '../components/items/BurgersListContainer';
 const Burgers = () => {
   return (
+    <>
     <BurgersListContainer />
+    </>
   )
 }
 
