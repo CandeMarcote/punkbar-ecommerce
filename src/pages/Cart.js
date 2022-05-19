@@ -28,7 +28,7 @@ const Cart = () => {
     })
 
   return (
-    <div>
+    <>
         {isCartPopulated && cartItems}
         {!isCartPopulated && <p>There are no items in the cart yet...</p>}
         {isCartPopulated && <button onClick={orderHandler}>Order now!</button>}
@@ -38,7 +38,7 @@ const Cart = () => {
             <button onClick={hideModalHandler}>Ok</button>
           </div>
           </Modal>}
-    </div>
+    </>
   )
 }
 

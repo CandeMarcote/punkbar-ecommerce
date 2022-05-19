@@ -5,16 +5,18 @@ import ItemList from './ItemList';
 import ItemPagination from './ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 
+const itemsPerPage = 10;
+
 const ItemListContainer = () => {
     const favorites = useContext(FavoritesContext).items
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [beersCurrentPage, setBeersCurrentPage] = useState(localStorage.getItem('beersCurrentPage') || 1);
     const [searchValue, setSearchValue] = useState('');
     const [filterFavorites, setFilterFavorites] = useState(false)
 
     function getCurrentPageHandler(page) {
-        setCurrentPage(page)
+        setBeersCurrentPage(page)
     }
 
     function getSearchValue(val) {
@@ -36,7 +38,7 @@ const ItemListContainer = () => {
             const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}`;
             res = await getRequestData(url)
         } else {
-            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`;
+            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${itemsPerPage}`;
             res = await getRequestData(url);
         }
 
@@ -57,12 +59,13 @@ const ItemListContainer = () => {
     }
 
     useEffect(()=> {
-        getFetch(currentPage);
-    }, [currentPage, searchValue])
+        localStorage.setItem('beersCurrentPage', beersCurrentPage)
+        getFetch(beersCurrentPage);
+    }, [beersCurrentPage, searchValue])
 
   return (
     <>
-        <ItemPagination onGetCurrentPage={getCurrentPageHandler}/>
+        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325}/>
         <ItemFilter onGetSearchValue={getSearchValue} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
         {isLoading && <p>Spinner</p>}
         {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}

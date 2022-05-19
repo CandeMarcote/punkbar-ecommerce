@@ -16,7 +16,6 @@ const ItemFilter = (props) => {
   function filterFavoritesHandler() {
     setShowFavorites(true);
     props.onFilterFavorites();
-    props.onFilterByName();
   }
 
   function showAllHandler() {

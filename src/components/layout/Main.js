@@ -1,11 +1,10 @@
 import React from 'react';
 import classes from './styles/Main.module.css';
-import ItemListContainer from '../items/ItemListContainer';
 
-const Main = () => {
+const Main = (props) => {
   return (
     <div className={classes.main}>
-        <ItemListContainer />
+        {props.children}
     </div>
   )
 }

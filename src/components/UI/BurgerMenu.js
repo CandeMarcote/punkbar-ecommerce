@@ -4,12 +4,12 @@ import classes from './BurgerMenu.module.css';
 const BurgerMenu = (props) => {
     const [showMenu, setShowMenu] = useState(false);
 
-    function menuHandler() {
+    function toggleMenuHandler() {
         setShowMenu(!showMenu);
     }
 
   return (
-    <div onClick={menuHandler} className={classes.burgerMenuContainer}>
+    <div onClick={toggleMenuHandler} className={classes.burgerMenuContainer}>
         <div className={classes.middleLine}></div>
         {showMenu && <div className={classes.content}>{props.children}</div>}
     </div>
