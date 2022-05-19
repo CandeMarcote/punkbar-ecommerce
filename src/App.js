@@ -5,7 +5,6 @@ import Beers from './pages/Beers';
 import Burgers from './pages/Burgers';
 import Cart from './pages/Cart';
 import Favorites from './pages/Favorites';
-import Main from './components/layout/Main';
 
 import Header from './components/layout/Header';
 import ContextProvider from './store/ContextProvider';
@@ -26,7 +25,7 @@ const App = () => {
     <>
       <ContextProvider>
       <Header onLogin={loginHandler} logStatus={isLoggedIn}/>
-      <Main>
+      <>
         <Switch>
           <Route path='/login'>
             <Login onLogin={loginHandler} logStatus={isLoggedIn}/>
@@ -48,7 +47,7 @@ const App = () => {
             </Route>
 
             <Route path='/beers'>
-              <Beers />
+                <Beers />
             </Route>
 
             <Route path='/burgers'>
@@ -64,7 +63,7 @@ const App = () => {
             </Route>
           </Switch>
         )}           
-      </Main>
+      </>
       </ContextProvider>
     </>
   )

@@ -4,6 +4,7 @@ import ItemList from './ItemList';
 import ItemPagination from './ItemPagination'
 import FavoritesContext from '../../store/favorites-context';
 import ItemFilter from './ItemFilter';
+import Main from '../layout/Main'
 
 const itemsPerPage = 10;
 
@@ -92,10 +93,12 @@ const BurgersContainer = () => {
     <>
     <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={25}/>
     <ItemFilter onGetSearchValue={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} filterFavoritesStatus={filterFavorites} />
-    {isLoading && <p>Spinner</p>}
-    {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
-    {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
-    {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}
+    <Main>
+        {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
+        {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
+        {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}
+        {isLoading && <p>Spinner</p>}
+    </Main>
     </>
   )
 }

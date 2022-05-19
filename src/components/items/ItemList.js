@@ -8,9 +8,9 @@ import Card from '../UI/Card';
   })
 
   return (
-    <Card>
+    <>
       {arr}
-    </Card>
+    </>
   )
 }
 

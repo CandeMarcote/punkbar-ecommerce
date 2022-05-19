@@ -1,6 +1,6 @@
 .card {
-    border-radius: 1em;
-    margin-inline: auto;
+    border-radius: 0.1em;
+    margin: 2rem 3rem;
     max-width: max-content;
     padding: 2em;
     background-color: whitesmoke;

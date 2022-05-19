@@ -1,3 +1,5 @@
 .main {
-    margin-block: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }

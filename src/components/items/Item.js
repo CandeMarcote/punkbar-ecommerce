@@ -4,6 +4,7 @@ import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
 import ToggleFavorite from '../favorites/ToggleFavorite';
+import Card from '../UI/Card';
 
 const Item = ({product}) => {
     const cartCtx = useContext(CartContext);    
@@ -32,7 +33,7 @@ const Item = ({product}) => {
     }
 
   return (
-      <>
+      <Card>
         {product.type === 'beer' && (
         <div className={classes.item}>
             <div onClick={showDetailHandler}>
@@ -64,7 +65,7 @@ const Item = ({product}) => {
             <ToggleFavorite product={product} favedStatus={product.faved}/>
         </div>
         {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
-    </>
+    </Card>
   )
 }
 

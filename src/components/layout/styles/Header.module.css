@@ -1,21 +1,40 @@
 .header {
     display: flex;
-    justify-content: center;
-    padding: 1.5em; 
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 3em;
+    height: 5em;
+}
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: beige;
+.header > div {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.header__title {
+    text-decoration: none;
+    color: var(--clr-red-m);
+    letter-spacing: 0.2rem;
+    margin-right: 1.5rem;
+}
+
+.header nav ul li {
+    letter-spacing: 0.15rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-decoration: none;
+    list-style: none;
+    margin-block: 1rem;
 }
 
 .active {
-    text-decoration: underline;
-    color: darkred;
+    text-decoration: none;
+    color: var(--clr-green)
 }
 
-a{
+a {
     text-decoration: none;
-    color: black;
+    color: var(--clr-black);
 }

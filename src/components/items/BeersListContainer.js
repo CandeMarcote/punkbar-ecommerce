@@ -5,6 +5,7 @@ import ItemList from './ItemList';
 import ItemPagination from './ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 import FilterByIbu from './FilterByIbu';
+import Main from '../layout/Main';
 
 const itemsPerPage = 10;
 
@@ -84,10 +85,12 @@ const ItemListContainer = () => {
         <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325}/>
         <ItemFilter onGetSearchValue={getSearchValue} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
         <FilterByIbu onGetIbuValues={getIbuValuesHandler}/>
-        {isLoading && <p>Spinner</p>}
-        {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
-        {!isLoading && filterFavorites && <ItemList products={favorites}/> }
-        {!isLoading && !products.length && <p>No results...</p>}
+        <Main>
+            {isLoading && <p>Spinner</p>}
+            {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
+            {!isLoading && filterFavorites && <ItemList products={favorites}/> }
+            {!isLoading && !products.length && <p>No results...</p>}
+        </Main>
     </>
   )
 }
