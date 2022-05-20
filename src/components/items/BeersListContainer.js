@@ -55,7 +55,7 @@ const ItemListContainer = () => {
             res = await getRequestData(url);
             
         } else {
-            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${itemsPerPage}`;
+            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`;
             res = await getRequestData(url);
         }
 

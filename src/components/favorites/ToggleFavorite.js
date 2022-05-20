@@ -1,10 +1,16 @@
-import { useContext, useState} from 'react';
+import { useContext, useState, useEffect} from 'react';
 import FavoritesContext from '../../store/favorites-context';
 
 
 const ToggleFavorite = ({product}) => {
   const [isFaved, setIsFaved] = useState(false);
   const favoritesCtx = useContext(FavoritesContext);
+
+  const existingItem = favoritesCtx.items.find(element => element.name === product.name);
+
+  useEffect(()=>{
+    setIsFaved(existingItem);
+  }, existingItem)
 
   function toggleFavoriteHandler() {
     favoritesCtx.toggleItem({
