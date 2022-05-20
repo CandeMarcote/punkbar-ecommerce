@@ -8,6 +8,7 @@ import FilterByIbu from './filters/FilterByIbu';
 import Main from '../layout/Main';
 import './itemListContainer.css'
 import classes from './filters/FilterAndPagination.module.css';
+import SearchByName from './filters/SearchByName';
 
 const itemsPerPage = 10;
 
@@ -85,7 +86,8 @@ const ItemListContainer = () => {
   return (
     <Main>
     <div className='filterContainer'>
-        <FilterFavorites onGetSearchValue={getSearchValue} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
+        <SearchByName onGetSearchValue={getSearchValue} />
+        <FilterFavorites onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
         <FilterByIbu onGetIbuValues={getIbuValuesHandler}/>
     </div>
         <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>
