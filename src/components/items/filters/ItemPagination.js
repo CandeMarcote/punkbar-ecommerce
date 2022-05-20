@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import classes from './FilterAndPagination.module.css'
 
 const amountOfItemsPerPage = 10;
 
 
 const ItemPagination = (props) => {
-    const [currentPage, setCurrentPage] = useState(JSON.parse(localStorage.getItem('currentPage')) || 1);
+    const [currentPage, setCurrentPage] = useState(props.currentPage || 1);
     const totalAmount = props.totalAmount;
     const lastPage = Math.ceil(totalAmount/amountOfItemsPerPage);
     
@@ -39,11 +40,11 @@ const ItemPagination = (props) => {
     }, [currentPage])
 
     return (
-        <div>
-            <p>Page: {currentPage}</p>
+        <div className={classes.pagination}>
             <button onClick={goToFirstPage}> {'<<'} </button>
-            <button onClick={prevPageHandler}>Previous</button>
-            <button onClick={nextPageHandler}>Next</button>
+            <button onClick={prevPageHandler}>{'<'}</button>
+            <p> Page {currentPage}</p>
+            <button onClick={nextPageHandler}>{'>'}</button>
             <button onClick={goToLastPage}> {'>>'} </button>
         </div>
     )

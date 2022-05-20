@@ -1,6 +1,4 @@
-.burgerMenuContainer {
-    padding: 2.2rem 2.2rem 2.2rem 0;
-}
+
 
 .middleLine, .middleLine::before, .middleLine::after {
     background-color: var(--clr-red-m);
@@ -23,7 +21,7 @@
 .middleLine::after {
     content: '';
     position: absolute;
-        bottom: 0.5rem;
+        top: 1rem;
 }
 
 .content {
@@ -34,6 +32,6 @@
     padding: 5rem 2rem 1.5rem 4rem;
     position: absolute;
      top:0rem;
-     left: 12vw;
+     left: 0rem;
     border-bottom-right-radius: 2em;
 }

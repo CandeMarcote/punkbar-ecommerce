@@ -1,0 +1,20 @@
+.container {
+    color: white;
+    border: var(--b-1);
+}
+
+.pagination {
+    display:flex;
+    place-content: center;
+}
+
+.pagination > p, button {
+    margin-inline: 0.3rem;
+}
+
+.pagination button {
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white
+}

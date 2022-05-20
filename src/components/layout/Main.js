@@ -1,11 +1,11 @@
 import React from 'react';
-import classes from './styles/Main.module.css';
+import './styles/main.css';
 
 const Main = (props) => {
   return (
-    <div className={classes.main}>
+    <main className='main'>
         {props.children}
-    </div>
+    </main>
   )
 }
 

@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    align-items: center;
-    padding-inline: 3em;
     height: 5em;
 }
 

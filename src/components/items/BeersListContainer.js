@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import getRequestData from '../../services/services';
-import ItemFilter from './ItemFilter';
+import FilterFavorites from './filters/FilterFavorites';
 import ItemList from './ItemList';
-import ItemPagination from './ItemPagination';
+import ItemPagination from './filters/ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
-import FilterByIbu from './FilterByIbu';
+import FilterByIbu from './filters/FilterByIbu';
 import Main from '../layout/Main';
+import './itemListContainer.css'
+import classes from './filters/FilterAndPagination.module.css';
 
 const itemsPerPage = 10;
 
@@ -48,14 +50,14 @@ const ItemListContainer = () => {
         let res = undefined;
         setIsLoading(true)
         if (searchValue) {
-            const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}`;
+            const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}&per_page=${itemsPerPage}`;
             res = await getRequestData(url)
         } else if (smallestIbu || greatestIbu) {
-            const url = `https://api.punkapi.com/v2/beers?ibu_gt=${smallestIbu}&ibu_lt=${greatestIbu}`;
+            const url = `https://api.punkapi.com/v2/beers?ibu_gt=${smallestIbu}&ibu_lt=${greatestIbu}&per_page=${itemsPerPage}`;
             res = await getRequestData(url);
             
         } else {
-            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`;
+            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${itemsPerPage}`;
             res = await getRequestData(url);
         }
 
@@ -81,17 +83,19 @@ const ItemListContainer = () => {
     }, [beersCurrentPage, searchValue, smallestIbu, greatestIbu])
 
   return (
-    <>
-        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325}/>
-        <ItemFilter onGetSearchValue={getSearchValue} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
+    <Main>
+    <div className='filterContainer'>
+        <FilterFavorites onGetSearchValue={getSearchValue} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
         <FilterByIbu onGetIbuValues={getIbuValuesHandler}/>
-        <Main>
+    </div>
+        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>
+        <div className='itemListContainer'>
             {isLoading && <p>Spinner</p>}
             {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
             {!isLoading && filterFavorites && <ItemList products={favorites}/> }
             {!isLoading && !products.length && <p>No results...</p>}
-        </Main>
-    </>
+        </div>
+    </Main>
   )
 }
 

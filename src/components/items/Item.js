@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import classes from './Item.module.css';
+/* import classes from './Item.module.css'; */
 import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
 import ToggleFavorite from '../favorites/ToggleFavorite';
-import Card from '../UI/Card';
+import './itemListContainer.css';
 
 const Item = ({product}) => {
     const cartCtx = useContext(CartContext);    
@@ -33,39 +33,40 @@ const Item = ({product}) => {
     }
 
   return (
-      <Card>
+    <div className='item'>
         {product.type === 'beer' && (
-        <div className={classes.item}>
-            <div onClick={showDetailHandler}>
+            <>
+            <div className='item_name' onClick={showDetailHandler}>
                 <h4>{product.name}</h4>
                 <p>$ {product.price}</p>
                 <p>IBU: {product.ibu}</p>
                 <p>ABV: {product.abv}</p>
             </div>
-            <div className={classes.imgContainer} onClick={showDetailHandler}>
+
+            <div className='imgContainer' onClick={showDetailHandler}>
                 <img src={product.img} alt="A delicious beer" />
             </div>
-        </div>
+            </>
         )}
 
         {product.type === 'burger' && (
-        <div className={classes.item}>
+            <>
             <div onClick={showDetailHandler}>
                 <h4>{product.name}</h4>
                 <p>$ {product.price.toFixed(2)}</p>
             </div>
-            <div className={classes.imgContainer} onClick={showDetailHandler}>
+            <div className='imgContainer' onClick={showDetailHandler}>
                 <img src={product.img} alt="Delicious burger" />
             </div>
-        </div>
+            </>
         )}
 
-        <div>
+        <div className='item_add'>
             <ItemForm onAddToCart={addToCartHandler} />
             <ToggleFavorite product={product} favedStatus={product.faved}/>
         </div>
         {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
-    </Card>
+  </div>
   )
 }
 

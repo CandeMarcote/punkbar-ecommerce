@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect} from 'react';
 import FavoritesContext from '../../store/favorites-context';
-
+import '../items/itemListContainer.css'
 
 const ToggleFavorite = ({product}) => {
   const [isFaved, setIsFaved] = useState(false);
@@ -10,7 +10,7 @@ const ToggleFavorite = ({product}) => {
 
   useEffect(()=>{
     setIsFaved(existingItem);
-  }, existingItem)
+  }, [existingItem])
 
   function toggleFavoriteHandler() {
     favoritesCtx.toggleItem({
@@ -29,7 +29,7 @@ const ToggleFavorite = ({product}) => {
   
   return (
     <>
-    {isFaved ? <button onClick={toggleFavoriteHandler}>{'♥'}</button> : <button onClick={toggleFavoriteHandler}>{'♡'}</button>}
+    {isFaved ? <button className='fave' onClick={toggleFavoriteHandler}>{'♥'}</button> : <button className='fave' onClick={toggleFavoriteHandler}>{'♡'}</button>}
     </>
   )
 }

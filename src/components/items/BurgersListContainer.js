@@ -1,17 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react';
 import getRequestData from '../../services/services';
 import ItemList from './ItemList';
-import ItemPagination from './ItemPagination'
+import ItemPagination from './filters/ItemPagination'
 import FavoritesContext from '../../store/favorites-context';
-import ItemFilter from './ItemFilter';
-import Main from '../layout/Main'
+import FilterFavorites from './filters/FilterFavorites';
+import Main from '../layout/Main';
+import classes from './filters/FilterAndPagination.module.css';
 
 const itemsPerPage = 10;
 
 const BurgersContainer = () => {
     const [burgersOnShow, setBurgersOnShow] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(localStorage.getItem('burgersCurrentPage') || 1);
+    const [burgersCurrentPage, setBurgersCurrentPage] = useState(localStorage.getItem('burgersCurrentPage') || 1);
     const [searchValue, setSearchValue] = useState('');
     const [filterFavorites, setFilterFavorites] = useState(false)
 
@@ -21,6 +22,7 @@ const BurgersContainer = () => {
         return item.type === 'burger'}
     );
 
+    //Filter favorites
     function filterFavoritesHandler() {
         setFilterFavorites(true);
     }
@@ -29,12 +31,14 @@ const BurgersContainer = () => {
         setFilterFavorites(false);
     }
 
-    function getSearchValueHandler(name) {
-        setSearchValue(name);
+    //Pagination
+    function getCurrentPageHandler(page) {
+        setBurgersCurrentPage(page)
     }
 
-    function getCurrentPageHandler(page) {
-        setCurrentPage(page);
+    //Search by name
+    function getSearchValueHandler(name) {
+        setSearchValue(name);
     }
 
     let getFetch = async (page) => {
@@ -85,20 +89,22 @@ const BurgersContainer = () => {
     }
 
     useEffect(()=> {
-        localStorage.setItem('burgersCurrentPage', currentPage)
-        getFetch(currentPage);
-    }, [currentPage, searchValue]);
+        localStorage.setItem('burgersCurrentPage', burgersCurrentPage)
+        getFetch(burgersCurrentPage);
+    }, [burgersCurrentPage, searchValue]);
 
   return (
     <>
-    <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={25}/>
-    <ItemFilter onGetSearchValue={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} filterFavoritesStatus={filterFavorites} />
-    <Main>
+    <div className={classes.container}>
+    <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={25} currentPage={burgersCurrentPage}/>
+        <FilterFavorites onGetSearchValue={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} filterFavoritesStatus={filterFavorites} />
+    </div>
+    <div>
         {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
         {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
         {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}
         {isLoading && <p>Spinner</p>}
-    </Main>
+    </div>
     </>
   )
 }
