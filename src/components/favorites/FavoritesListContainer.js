@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import FavoritesList from './FavoritesList';
-import Card from '../UI/Card';
-import FilterFavoritesByName from './FilterFavoritesByName';
+import SearchByName from '../items/filters/SearchByName';
 import FavoritesContext from '../../store/favorites-context';
+import '../../styles/favorites.css'
 
 const FavoritesListContainer = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -15,12 +15,13 @@ const FavoritesListContainer = () => {
     }
 
   return (
-    <Card>
+    <div className='favoriteItemContainer'>
         <h3>These are your favorites!</h3>
-        <br />
-        <FilterFavoritesByName onGetSearchValue={getSearchValueHandler} />
+        <div className='filterContainer'>
+          <SearchByName onGetSearchValue={getSearchValueHandler}/>
+        </div>
         {!searchValue ? <FavoritesList items={favoritesCtx.items}/> : <FavoritesList items={existingItem}/>}
-    </Card>
+    </div>
   )
 }
 

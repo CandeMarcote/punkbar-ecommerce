@@ -1,3 +1,18 @@
+button {
+    margin: 0;
+    border: none;
+    color: var(--clr-black-border);
+    font-weight: bolder;
+    background-color: var(--clr-red-m);
+    padding: 0.3rem;
+    border-radius: 0.2rem;
+
+    box-shadow: 0px 0px 3px 0px black;
+}
+
+.filterContainer{
+    margin-top: 3rem;
+}
 
 .filterContainer > div {
     border-bottom: solid 3px var(--clr-black-border);
@@ -10,13 +25,10 @@
 }
 
 /* search by name */
-.filterBySearch button{
-    margin-inline: 0;
-}
 
 .filterBySearch input {
     margin-block: 1rem;
-    max-width: 10em;
+    width: 80%;
 }
 
 /*filter by ibu*/
@@ -27,6 +39,9 @@
 .ibu h5 {
     font-size: 1.3rem;
     margin-bottom: 0.7rem;
+    word-wrap: break-word;
+}
+.ibu label{
     word-wrap: break-word;
 }
 

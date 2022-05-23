@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/main.css';
+import '../../styles/modal.css';
 import ReactDOM from 'react-dom';
 
 const Backdrop = (props) =>  {

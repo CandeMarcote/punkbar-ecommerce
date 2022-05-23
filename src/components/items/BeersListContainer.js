@@ -5,7 +5,6 @@ import ItemList from './ItemList';
 import ItemPagination from './filters/ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 import FilterByIbu from './filters/FilterByIbu';
-import Main from '../layout/Main';
 import SearchByName from './filters/SearchByName';
 
 import '../../styles/main.css';
@@ -18,11 +17,11 @@ const ItemListContainer = () => {
     const favorites = useContext(FavoritesContext).items
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [beersCurrentPage, setBeersCurrentPage] = useState(localStorage.getItem('beersCurrentPage') || 1);
+    const [beersCurrentPage, setBeersCurrentPage] = useState(Number(localStorage.getItem('beersCurrentPage')));
     const [searchValue, setSearchValue] = useState('');
     const [filterFavorites, setFilterFavorites] = useState(false)
-    const [smallestIbu, setSmallestIbu] = useState(0);
-    const [greatestIbu, setGreatestIbu] = useState(100);
+    const [smallestIbu, setSmallestIbu] = useState(undefined);
+    const [greatestIbu, setGreatestIbu] = useState(undefined);
 
     //Pagination
     function getCurrentPageHandler(page) {
@@ -52,7 +51,7 @@ const ItemListContainer = () => {
     let getFetch = async (page) => {
         let res = undefined;
         setIsLoading(true)
-        if (searchValue) {
+        if (searchValue.trim() !== '') {
             const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}&per_page=${itemsPerPage}`;
             res = await getRequestData(url)
         } else if (smallestIbu || greatestIbu) {
@@ -62,6 +61,7 @@ const ItemListContainer = () => {
         } else {
             const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${itemsPerPage}`;
             res = await getRequestData(url);
+
         }
 
         const transformData = res.map(product => {
@@ -86,7 +86,7 @@ const ItemListContainer = () => {
     }, [beersCurrentPage, searchValue, smallestIbu, greatestIbu])
 
   return (
-    <Main>
+    <main className='Beers'>
     <div className='filterContainer'>
         <div>
             <FilterFavorites onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
@@ -104,8 +104,9 @@ const ItemListContainer = () => {
             {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
             {!isLoading && filterFavorites && <ItemList products={favorites}/> }
             {!isLoading && !products.length && <p>No results...</p>}
+        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>
     </div>
-    </Main>
+    </main>
   )
 }
 

@@ -39,22 +39,22 @@ const Item = ({product}) => {
             <ToggleFavorite product={product} favedStatus={product.faved}/>
         </div>
         {product.type === 'beer' && (
-            <>
+            <div className='beer__item'>
+
+            <div className='imgContainer' onClick={showDetailHandler}>
+                <img src={product.img} alt="A delicious beer" />
+            </div>
             <div className='item_name' onClick={showDetailHandler}>
                 <h4>{product.name}</h4>
                 <p>$ {product.price}</p>
                 <p>IBU: {product.ibu}</p>
                 <p>ABV: {product.abv}</p>
             </div>
-
-            <div className='imgContainer' onClick={showDetailHandler}>
-                <img src={product.img} alt="A delicious beer" />
             </div>
-            </>
         )}
 
         {product.type === 'burger' && (
-            <>
+            <div className='burger__item'>
             <div onClick={showDetailHandler}>
                 <h4>{product.name}</h4>
                 <p>$ {product.price.toFixed(2)}</p>
@@ -62,7 +62,7 @@ const Item = ({product}) => {
             <div className='imgContainer' onClick={showDetailHandler}>
                 <img src={product.img} alt="Delicious burger" />
             </div>
-            </>
+            </div>
         )}
 
         <div className='item_add'>

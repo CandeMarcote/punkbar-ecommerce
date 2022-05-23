@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import '../../../styles/filters.css';
 
 const FilterByIbu = (props) => {
-    const [maxValue, setMaxValue] = useState(100);
-    const [minValue, setMinValue] = useState(1);
+    const [maxValue, setMaxValue] = useState(undefined);
+    const [minValue, setMinValue] = useState(undefined);
 
     function getMaxValueHandler(e) {
         setMaxValue(e.target.value);
@@ -27,7 +27,7 @@ const FilterByIbu = (props) => {
         </div>
         <div>
             <label htmlFor="maxValue">Higest IBU value </label>
-            <input id='maxValue' type="number" min={1} max={100} step={1} onChange={getMaxValueHandler} placeholder='100' defaultValue={100}/>
+            <input id='maxValue' type="number" min={1} max={100} step={1} onChange={getMaxValueHandler} placeholder='100'/>
         </div>
         <button type="submit">Search</button>
     </form>

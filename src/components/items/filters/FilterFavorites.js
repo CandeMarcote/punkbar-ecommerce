@@ -16,7 +16,7 @@ const ItemFilter = (props) => {
   
   return (
     <div>
-      {!showFavorites? <button className='button' onClick={filterFavoritesHandler}>Favorites</button> : <button className='button' onClick={showAllHandler}>All items</button>}
+      {!showFavorites? <button className='filterFavorites' onClick={filterFavoritesHandler}>Favorites</button> : <button className='filterFavorites' onClick={showAllHandler}>All items</button>}
     </div>
   )
 }

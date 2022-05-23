@@ -15,7 +15,7 @@ const SearchByName = (props) => {
     
   return (
     <form onSubmit={submitHandler} className='filterBySearch'>
-        <label htmlFor="search"><h5>Filter by search</h5></label>
+        <label htmlFor="search"><h5>Search by name</h5></label>
         <input type="text" id='search' placeholder='type a name here' onChange={inputChangeHandler}/>
         <button type='submit'>Search</button>
     </form>

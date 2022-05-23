@@ -1,5 +1,8 @@
 import { useContext, useState, useEffect} from 'react';
 import FavoritesContext from '../../store/favorites-context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faHeart, faHeartHalf } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/filters.css'
 
 const ToggleFavorite = ({product}) => {
@@ -29,7 +32,7 @@ const ToggleFavorite = ({product}) => {
   
   return (
     <>
-    {isFaved ? <button className='fave' onClick={toggleFavoriteHandler}>{'♥'}</button> : <button className='fave' onClick={toggleFavoriteHandler}>{'♡'}</button>}
+    {isFaved ? <button className='fave' onClick={toggleFavoriteHandler}><FontAwesomeIcon icon={faHeart} beat/></button> : <button className='fave' onClick={toggleFavoriteHandler}>{'♡'}</button>}
     </>
   )
 }

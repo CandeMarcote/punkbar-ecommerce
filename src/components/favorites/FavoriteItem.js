@@ -19,32 +19,22 @@ const FavoriteItem = ({ item }) => {
   return (
     <>
       {item.type === 'beer' && (
-        <div onClick={showDetailHandler}>
-          <hr />
-          <br />
+        <div onClick={showDetailHandler} className='favoriteItem favoriteBeer'>
           <h4>{item.name}</h4>
+          <p>{item.description}</p>
           <p>IBU: {item.ibu}</p>
           <p>ABV: {item.abv}</p>
-          <p>$ {item.price.toFixed(2)}</p>
-          <p>{item.description}</p>
+          <p className='price'>$ {item.price.toFixed(2)}</p>
           <ToggleFavorite product={item}/>
-          <br />
-          <hr />
-          <br />
           {showDetail && <ItemDetail product={item} onClose={hideDetailHandler}/>}
         </div>
       )}
       {item.type === 'burger' && (
-        <div onClick={showDetailHandler}>
-          <hr />
-          <br />
+        <div onClick={showDetailHandler} className='favoriteItem favoriteBurger'>
           <h4>{item.name}</h4>
-          <p>$ {item.price.toFixed(2)}</p>
           <p>{item.description}</p>
+          <p className='price'>$ {item.price.toFixed(2)}</p>
           <ToggleFavorite product={item}/>
-          <br />
-          <hr />
-          <br />
           {showDetail && <ItemDetail product={item} onClose={hideDetailHandler}/>}
         </div>
       )}

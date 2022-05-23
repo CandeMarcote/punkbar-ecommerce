@@ -1,10 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import getRequestData from '../../services/services';
 import ItemList from './ItemList';
-import ItemPagination from './filters/ItemPagination'
+import ItemPagination from './filters/ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 import FilterFavorites from './filters/FilterFavorites';
-import Main from '../layout/Main';
+import SearchByName from './filters/SearchByName';
 
 import '../../styles/main.css';
 import '../../styles/filters.css';
@@ -14,8 +14,8 @@ const itemsPerPage = 10;
 
 const BurgersContainer = () => {
     const [burgersOnShow, setBurgersOnShow] = useState([]);
+    const [burgersCurrentPage, setBurgersCurrentPage] = useState(localStorage.getItem('burgersCurrentPage'));
     const [isLoading, setIsLoading] = useState(false);
-    const [burgersCurrentPage, setBurgersCurrentPage] = useState(localStorage.getItem('burgersCurrentPage') || 1);
     const [searchValue, setSearchValue] = useState('');
     const [filterFavorites, setFilterFavorites] = useState(false)
 
@@ -45,7 +45,7 @@ const BurgersContainer = () => {
     }
 
     let getFetch = async (page) => {
-        if(searchValue.trim().length === 0) {
+        if(searchValue.trim() === '') {
             let res = undefined;
             setIsLoading(true)
             const url = `https://my-burger-api.herokuapp.com/burgers?_page=${page}&_limit=${itemsPerPage}`;
@@ -87,32 +87,34 @@ const BurgersContainer = () => {
             });
     
             setBurgersOnShow(existingItem);
+
         }
         setIsLoading(false);
     }
 
     useEffect(()=> {
-        localStorage.setItem('burgersCurrentPage', burgersCurrentPage)
+        localStorage.setItem('burgersCurrentPage', burgersCurrentPage);
         getFetch(burgersCurrentPage);
-    }, [burgersCurrentPage, searchValue]);
+    }, [searchValue, burgersCurrentPage]);
 
   return (
-    <Main>
+    <main className='Beers Burgers'>
     <div className='filterContainer'>
-        <div>
-            <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={25} currentPage={burgersCurrentPage}/>
-        </div>
         <div>
             <FilterFavorites onGetSearchValue={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} filterFavoritesStatus={filterFavorites} />
         </div>
+        <div>
+            <SearchByName onGetSearchValue={getSearchValueHandler} />
+        </div>
     </div>
     <div className='itemListContainer'>
+        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={28} currentPage={burgersCurrentPage}/>
         {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
         {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
         {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}
         {isLoading && <p>Spinner</p>}
     </div>
-    </Main>
+    </main>
   )
 }
 

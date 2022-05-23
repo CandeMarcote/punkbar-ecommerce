@@ -1,40 +1,49 @@
 import React from 'react';
 import Modal from '../UI/Modal';
 import ToggleFavorite from '../favorites/ToggleFavorite';
+import '../../styles/itemDetail.css'
 
 const ItemDetail = ({product, onClose}) => {
   let ingredients;
 
   if(product.type === 'burger') {
     ingredients = product.ingredients.map(ingredient => {
-      return <p key={Math.random()}>{ingredient}</p> 
+      return <li key={Math.random()}>{ingredient}</li> 
     })
   }
 
   return (
     <Modal onClose={onClose}>
         {product.type === 'beer' && (
-        <div>
+        <div className='itemDetail beer__itemDetail'>
             <h3>{product.name}</h3>
-            <img src={product.img} alt="Buzz beer" width='30%'/>
-            <p>{product.description}</p>
-            <div>
+            <div className='detailImgContainer'>
+              <img src={product.img} alt="Buzz beer" width='30%'/>
+            </div>
+            <div className='description'>
+              <p>{product.description}</p>
                 <p>IBU: {product.ibu}</p>
                 <p>ABV: {product.abv}</p>
             </div>
+          <ToggleFavorite product={product}/>
         </div>
         )}
         
         {product.type === 'burger' && (
-        <div>
+        <div className='itemDetail burger__itemDetail'>
           <h3>{product.name}</h3>
           <img src={product.img} alt="Buzz beer" width='30%'/>
-          <div>
-            <div>Ingredients: {ingredients}</div>
+          <div className='ingredients'>
+            <div>
+              <h6>Ingredients:</h6>
+              <ul>
+                {ingredients}
+              </ul>
+            </div>
           </div>
+          <ToggleFavorite product={product}/>
         </div>
         )}
-        <ToggleFavorite product={product}/>
     </Modal>
   )
 }

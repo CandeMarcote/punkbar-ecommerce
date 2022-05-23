@@ -5,7 +5,7 @@ const amountOfItemsPerPage = 10;
 
 
 const ItemPagination = (props) => {
-    const [currentPage, setCurrentPage] = useState(props.currentPage || 1);
+    const [currentPage, setCurrentPage] = useState(Number(props.currentPage) || 1);
     const totalAmount = props.totalAmount;
     const lastPage = Math.ceil(totalAmount/amountOfItemsPerPage);
     
