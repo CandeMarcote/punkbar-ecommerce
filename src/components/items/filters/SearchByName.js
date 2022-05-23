@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '../../../styles/filters.css';
 
 const SearchByName = (props) => {
     const [filterInput, setFilterInput] = useState('');
@@ -13,9 +14,10 @@ const SearchByName = (props) => {
     }
     
   return (
-    <form onSubmit={submitHandler}>
-        <button type='submit'>Search</button>
+    <form onSubmit={submitHandler} className='filterBySearch'>
+        <label htmlFor="search"><h5>Filter by search</h5></label>
         <input type="text" id='search' placeholder='type a name here' onChange={inputChangeHandler}/>
+        <button type='submit'>Search</button>
     </form>
   )
 }

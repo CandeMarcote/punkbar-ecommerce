@@ -1,0 +1,135 @@
+/* .itemListContainer */
+
+.Beers .itemListContainer {
+    margin-inline: auto;
+}
+
+.prueba {
+    background-color: red;
+}
+
+
+.Beers .itemListContainer .itemList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-content: center;
+}
+
+.Beers .itemListContainer .itemList .item {
+    background-color: var(--clr-black-border);
+    word-wrap: break-word;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    grid-template-areas:
+    "fave"
+    "img"
+    "txt"
+    "add";
+
+    position:relative;
+    border-radius: 0.2rem;
+}
+
+.imgContainer {
+    grid-area: img;
+    background-color: rgb(248, 226, 213);
+    padding: 1.2em;
+    border-radius: 0.2rem;
+}
+
+img {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.item_name {
+    grid-area: txt;
+    margin-block: 1rem;
+}
+
+.item input {
+    grid-area: add;
+    width: 5ch;
+    background-color: var(--clr-black-border);
+    border-color: var(--clr-black-border);
+    box-shadow: 0px 0px 3px 0px darkgray;
+    border-radius: 0.2rem;
+    color: white;
+}
+
+
+.item button {
+    border: none;
+    color: var(--clr-black-border);
+    font-weight: bolder;
+    background-color: var(--clr-red-m);
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+
+    box-shadow: 0px 0px 3px 0px black;
+}
+
+.item .item_add {
+    grid-area: add;
+}
+
+.item .fave {
+    grid-area: fave;
+    background: none;
+    box-shadow: none;
+    color: var(--clr-red-m);
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width:800px) {
+    .Beers .itemListContainer .itemList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .Beers .itemListContainer .itemList {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        justify-content: center;
+    }
+}
+
+/* pagination and filter */
+.container {
+    color: white;
+}
+
+.pagination {
+    display:flex;
+    place-content: center;
+    margin: 1rem;
+}
+
+.pagination > p, button {
+    margin-inline: 0.3rem;
+}
+.pagination>p {
+    height: max-content;
+}
+
+.pagination button {
+    background-color: var(--clr-black);
+    box-shadow: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    
+    height: max-content;
+    padding-block: 0;
+}
+
+h5 {
+    font-size: 1.3rem;
+}

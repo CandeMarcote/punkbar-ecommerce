@@ -5,7 +5,10 @@ import ItemPagination from './filters/ItemPagination'
 import FavoritesContext from '../../store/favorites-context';
 import FilterFavorites from './filters/FilterFavorites';
 import Main from '../layout/Main';
-import classes from './filters/FilterAndPagination.module.css';
+
+import '../../styles/main.css';
+import '../../styles/filters.css';
+import '../../styles/itemListContainer.css';
 
 const itemsPerPage = 10;
 
@@ -94,18 +97,22 @@ const BurgersContainer = () => {
     }, [burgersCurrentPage, searchValue]);
 
   return (
-    <>
-    <div className={classes.container}>
-    <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={25} currentPage={burgersCurrentPage}/>
-        <FilterFavorites onGetSearchValue={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} filterFavoritesStatus={filterFavorites} />
+    <Main>
+    <div className='filterContainer'>
+        <div>
+            <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={25} currentPage={burgersCurrentPage}/>
+        </div>
+        <div>
+            <FilterFavorites onGetSearchValue={getSearchValueHandler} onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler} filterFavoritesStatus={filterFavorites} />
+        </div>
     </div>
-    <div>
+    <div className='itemListContainer'>
         {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
         {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
         {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}
         {isLoading && <p>Spinner</p>}
     </div>
-    </>
+    </Main>
   )
 }
 

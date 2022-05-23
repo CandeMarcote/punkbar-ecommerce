@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../../styles/filters.css';
 
 const ItemFilter = (props) => {
   const [showFavorites, setShowFavorites] = useState(false);
@@ -14,9 +15,9 @@ const ItemFilter = (props) => {
   }
   
   return (
-    <>
-      {!showFavorites? <button onClick={filterFavoritesHandler}>Favorites</button> : <button onClick={showAllHandler}>All items</button>}
-    </>
+    <div>
+      {!showFavorites? <button className='button' onClick={filterFavoritesHandler}>Favorites</button> : <button className='button' onClick={showAllHandler}>All items</button>}
+    </div>
   )
 }
 

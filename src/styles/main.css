@@ -1,0 +1,83 @@
+button {
+    border: none;
+    color: var(--clr-black-border);
+    font-weight: bolder;
+    background-color: var(--clr-red-m);
+    padding: 0.3rem;
+    border-radius: 0.2rem;
+    height: 2.5em;
+
+    box-shadow: 0px 0px 3px 1px black;
+}
+
+main{
+    margin-top: 2em;
+}
+
+.Beers {
+    display: flex;
+}
+
+.Beers .filterContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+/* media queries */
+
+@media screen and (max-width: 900px) {
+    .Beers {
+        flex-direction: column;
+    }
+
+    .Beers .filterContainer {
+        flex-direction: row-reverse;
+    }
+
+    .Beers .filterContainer > div {
+        flex-basis: 100%;
+        margin: 0.5rem;
+    }
+    
+    .Beers .itemListContainer .itemList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .Beers .itemListContainer .itemList {
+        grid-template-columns: 1fr;
+    }
+
+    .Beers .itemListContainer .itemList .item {
+        justify-content: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

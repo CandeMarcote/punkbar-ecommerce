@@ -4,7 +4,7 @@ import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
 import ToggleFavorite from '../favorites/ToggleFavorite';
-import './itemListContainer.css';
+import '../../styles/main.css';
 
 const Item = ({product}) => {
     const cartCtx = useContext(CartContext);    
@@ -33,7 +33,11 @@ const Item = ({product}) => {
     }
 
   return (
+
     <div className='item'>
+        <div className="favoriteToggle">
+            <ToggleFavorite product={product} favedStatus={product.faved}/>
+        </div>
         {product.type === 'beer' && (
             <>
             <div className='item_name' onClick={showDetailHandler}>
@@ -63,7 +67,6 @@ const Item = ({product}) => {
 
         <div className='item_add'>
             <ItemForm onAddToCart={addToCartHandler} />
-            <ToggleFavorite product={product} favedStatus={product.faved}/>
         </div>
         {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
   </div>

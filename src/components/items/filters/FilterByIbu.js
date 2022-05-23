@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FilterByIbu.css'
+import '../../../styles/filters.css';
 
 const FilterByIbu = (props) => {
     const [maxValue, setMaxValue] = useState(100);

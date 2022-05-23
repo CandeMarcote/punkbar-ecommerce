@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
-import classes from './Login.module.css'
+import '../styles/main.css';
 
 const userEmail = '123@gmail.com';
 const userPassword = '123456';
@@ -63,12 +63,12 @@ const Login = (props) => {
         <form onSubmit={loginHandler}>
           <div>
             <label htmlFor="email">E-mail or username </label>
-            <input className={!emailInput && emailWasTouched? classes.invalid : ''} onBlur={emailBlurHandler} type="text" id='email' placeholder='type here' onChange={emailChangeHandler} />
+            <input className={!emailInput && emailWasTouched? 'invalid' : ''} onBlur={emailBlurHandler} type="text" id='email' placeholder='type here' onChange={emailChangeHandler} />
           </div>
           <br />
           <div>
             <label htmlFor="password">Password </label>
-            <input className={!passwordInput && passwordWasTouched? classes.invalid : ''} onBlur={passwordBlurHandler} type="password" id="password" placeholder='type here' onChange={passwordChangeHandler} />
+            <input className={!passwordInput && passwordWasTouched? 'invalid' : ''} onBlur={passwordBlurHandler} type="password" id="password" placeholder='type here' onChange={passwordChangeHandler} />
           </div>
           <br />
           {!formIsValid && emailWasTouched && passwordWasTouched && <p>Your e-mail, username or password is incorrect!</p>}

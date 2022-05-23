@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import classes from './HeaderCartButton.module.css';
+import '../../styles/header.css'
 import CartContext from '../../store/cart-context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 const HeaderCartButton = (props) => {
     const cartCtx = useContext(CartContext);
@@ -9,10 +11,10 @@ const HeaderCartButton = (props) => {
         return currentNumber + item.amount;
     }, 0)
   return (
-    <button onClick={props.onShowCart}>
-        <div className={classes.cartButton}>
-            <div className={classes.cartIcon}></div>
-            <div className={classes.cartItemsNumber}>{numberOfItems}</div>
+    <button  className='cartButton' onClick='onShowCart'>
+        <div>
+            <FontAwesomeIcon icon={faCartShopping} className='cartIcon'/>
+            <div className='cartItemsNumber'>{numberOfItems}</div>
         </div>
     </button>
   )

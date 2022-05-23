@@ -6,9 +6,11 @@ import ItemPagination from './filters/ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 import FilterByIbu from './filters/FilterByIbu';
 import Main from '../layout/Main';
-import './itemListContainer.css'
-import classes from './filters/FilterAndPagination.module.css';
 import SearchByName from './filters/SearchByName';
+
+import '../../styles/main.css';
+import '../../styles/filters.css';
+import '../../styles/itemListContainer.css';
 
 const itemsPerPage = 10;
 
@@ -86,17 +88,23 @@ const ItemListContainer = () => {
   return (
     <Main>
     <div className='filterContainer'>
-        <SearchByName onGetSearchValue={getSearchValue} />
-        <FilterFavorites onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
-        <FilterByIbu onGetIbuValues={getIbuValuesHandler}/>
+        <div>
+            <FilterFavorites onFilterFavorites={filterFavoritesHandler} onShowAll={showAllHandler}/>
+        </div>
+        <div>
+            <SearchByName onGetSearchValue={getSearchValue} />
+        </div>
+        <div>
+            <FilterByIbu onGetIbuValues={getIbuValuesHandler}/>
+        </div>
     </div>
+    <div className='itemListContainer'>
         <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>
-        <div className='itemListContainer'>
             {isLoading && <p>Spinner</p>}
             {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
             {!isLoading && filterFavorites && <ItemList products={favorites}/> }
             {!isLoading && !products.length && <p>No results...</p>}
-        </div>
+    </div>
     </Main>
   )
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import './styles/main.css';
+import '../../styles/main.css';
 
 const Main = (props) => {
   return (
-    <main className='main'>
+    <main className='Beers'>
         {props.children}
     </main>
   )

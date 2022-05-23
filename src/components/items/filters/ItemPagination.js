@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import classes from './FilterAndPagination.module.css'
+import '../../../styles/main.css';
 
 const amountOfItemsPerPage = 10;
 
@@ -40,7 +40,7 @@ const ItemPagination = (props) => {
     }, [currentPage])
 
     return (
-        <div className={classes.pagination}>
+        <div className='pagination'>
             <button onClick={goToFirstPage}> {'<<'} </button>
             <button onClick={prevPageHandler}>{'<'}</button>
             <p> Page {currentPage}</p>

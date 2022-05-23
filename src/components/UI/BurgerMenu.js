@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classes from './BurgerMenu.module.css';
+import '../../styles/header.css';
 
 const BurgerMenu = (props) => {
     const [showMenu, setShowMenu] = useState(false);
@@ -9,9 +9,9 @@ const BurgerMenu = (props) => {
     }
 
   return (
-    <div onClick={toggleMenuHandler} className={classes.burgerMenuContainer}>
-        <div className={classes.middleLine}></div>
-        {showMenu && <div className={classes.content}>{props.children}</div>}
+    <div onClick={toggleMenuHandler} className='burgerMenuContainer'>
+        <div className='middleLine'></div>
+        {showMenu && <div className='content'>{props.children}</div>}
     </div>
   )
 }

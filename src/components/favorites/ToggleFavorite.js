@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect} from 'react';
 import FavoritesContext from '../../store/favorites-context';
-import '../items/itemListContainer.css'
+import '../../styles/filters.css'
 
 const ToggleFavorite = ({product}) => {
   const [isFaved, setIsFaved] = useState(false);

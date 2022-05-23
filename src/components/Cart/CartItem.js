@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import classes from './CartItem.module.css';
+import '../../styles/main.css'
 import CartContext from '../../store/cart-context';
 import ItemDetail from '../items/ItemDetail';
 
@@ -43,11 +43,11 @@ const CartItem = ({product}) => {
       <>
       <br />
       <hr />
-    <div className={classes.itemContainer} onClick={showDetailHandler}>
+    <div className='itemContainer' onClick={showDetailHandler}>
         <div>
             <p>{product.name}</p>
             <p>${product.price.toFixed(2)}</p>
-            <div className={classes.add}>
+            <div className='add'>
                 <button onClick={removeItemHandler}> - </button>
                 <p>{product.amount}</p>
                 <button onClick={addItemHandler}> + </button>
@@ -57,7 +57,7 @@ const CartItem = ({product}) => {
             </div>
         </div>
         <div>
-            <p className={classes.totalPrice}>$ {(product.amount*product.price).toFixed(2)}</p>
+            <p className='totalPrice'>$ {(product.amount*product.price).toFixed(2)}</p>
         </div>
     </div>
         {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import '../../styles/main.css';
 
 const ItemForm = (props) => {
   const amountInputRef = useRef();

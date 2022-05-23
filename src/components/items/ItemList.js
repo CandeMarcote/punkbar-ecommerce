@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './Item';
-import Card from '../UI/Card';
+import '../../styles/main.css'
 
   const itemList = ({products}) => {
   const arr = products.map((product) => {
@@ -8,9 +8,9 @@ import Card from '../UI/Card';
   })
 
   return (
-    <>
+    <div className='itemList'>
       {arr}
-    </>
+    </div>
   )
 }
 
