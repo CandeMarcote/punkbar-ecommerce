@@ -6,6 +6,7 @@ import ItemPagination from './filters/ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 import FilterByIbu from './filters/FilterByIbu';
 import SearchByName from './filters/SearchByName';
+import Spinner from '../UI/Spinner';
 
 import '../../styles/main.css';
 import '../../styles/filters.css';
@@ -100,7 +101,7 @@ const ItemListContainer = () => {
     </div>
     <div className='itemListContainer'>
             {!filterFavorites && !searchValue && !smallestIbu && !greatestIbu && <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>}
-            {isLoading && <p>Spinner</p>}
+            {isLoading && <Spinner/>}
             {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
             {!isLoading && filterFavorites && <ItemList products={favorites}/> }
             {!isLoading && !products.length && <p>No results...</p>}

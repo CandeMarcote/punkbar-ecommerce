@@ -5,6 +5,7 @@ import ItemPagination from './filters/ItemPagination';
 import FavoritesContext from '../../store/favorites-context';
 import FilterFavorites from './filters/FilterFavorites';
 import SearchByName from './filters/SearchByName';
+import Spinner from '../UI/Spinner';
 
 import '../../styles/main.css';
 import '../../styles/filters.css';
@@ -112,7 +113,7 @@ const BurgersContainer = () => {
         {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
         {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
         {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}
-        {isLoading && <p>Spinner</p>}
+        {isLoading && <Spinner />}
     </div>
     </main>
   )
