@@ -32,6 +32,7 @@
     margin: 1rem auto;
     padding-block: 1rem;
     border-bottom: solid 2px var(--clr-black-border);
+    align-items: center;
 }
 
 .cartItemInfo {
@@ -46,11 +47,13 @@
     padding: 1rem;
     background-color: antiquewhite;
     width: 5em;
+    height: fit-content;
     border-radius: 0.2rem;
 }
 
 .cartItemInfo .cartImgContainer img{
-    max-height: 5em;
+    max-height: 100px;
+    max-width: 100%;
 }
 
 .cartItemInfo h4{

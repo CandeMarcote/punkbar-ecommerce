@@ -52,10 +52,10 @@ const ItemListContainer = () => {
         let res = undefined;
         setIsLoading(true)
         if (searchValue.trim() !== '') {
-            const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}&per_page=${itemsPerPage}`;
+            const url = `https://api.punkapi.com/v2/beers?beer_name=${searchValue}`;
             res = await getRequestData(url)
         } else if (smallestIbu || greatestIbu) {
-            const url = `https://api.punkapi.com/v2/beers?ibu_gt=${smallestIbu}&ibu_lt=${greatestIbu}&per_page=${itemsPerPage}`;
+            const url = `https://api.punkapi.com/v2/beers?ibu_gt=${smallestIbu}&ibu_lt=${greatestIbu}`;
             res = await getRequestData(url);
             
         } else {
@@ -99,12 +99,11 @@ const ItemListContainer = () => {
         </div>
     </div>
     <div className='itemListContainer'>
-        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>
+            {!filterFavorites && !searchValue && !smallestIbu && !greatestIbu && <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>}
             {isLoading && <p>Spinner</p>}
             {!isLoading && !filterFavorites && products.length > 0 && <ItemList products={products}/>}
             {!isLoading && filterFavorites && <ItemList products={favorites}/> }
             {!isLoading && !products.length && <p>No results...</p>}
-        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={325} currentPage={beersCurrentPage}/>
     </div>
     </main>
   )

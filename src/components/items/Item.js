@@ -1,21 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext , useEffect} from 'react';
 /* import classes from './Item.module.css'; */
 import ItemDetail from './ItemDetail';
 import ItemForm from './ItemForm';
 import CartContext from '../../store/cart-context';
 import ToggleFavorite from '../favorites/ToggleFavorite';
-import '../../styles/main.css';
+import '../../styles/item.css';
 
 const Item = ({product}) => {
     const cartCtx = useContext(CartContext);    
     const [showDetail, setShowDetail] = useState(false);
     
+        function hideDetailHandler() {
+            setShowDetail(false);
+            document.body.classList.remove('noscroll');
+        }
+    
     function showDetailHandler() {
         setShowDetail(true);
-    }
-
-    function hideDetailHandler() {
-        setShowDetail(false);
+        document.body.classList.add('noscroll');
     }
 
     function addToCartHandler(amount) {
@@ -28,6 +30,7 @@ const Item = ({product}) => {
             abv: product.abv,
             img: product.img,
             type: product.type,
+            ingredients: product.ingredients,
             amount,
         });
     }
@@ -44,7 +47,7 @@ const Item = ({product}) => {
             <div className='imgContainer' onClick={showDetailHandler}>
                 <img src={product.img} alt="A delicious beer" />
             </div>
-            <div className='item_name' onClick={showDetailHandler}>
+            <div className='item_name' >
                 <h4>{product.name}</h4>
                 <p>$ {product.price}</p>
                 <p>IBU: {product.ibu}</p>

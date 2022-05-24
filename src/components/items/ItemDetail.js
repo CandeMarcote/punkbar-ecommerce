@@ -6,7 +6,7 @@ import '../../styles/itemDetail.css'
 const ItemDetail = ({product, onClose}) => {
   let ingredients;
 
-  if(product.type === 'burger') {
+   if(product.type === 'burger') {
     ingredients = product.ingredients.map(ingredient => {
       return <li key={Math.random()}>{ingredient}</li> 
     })

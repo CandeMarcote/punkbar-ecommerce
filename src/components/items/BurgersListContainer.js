@@ -108,7 +108,7 @@ const BurgersContainer = () => {
         </div>
     </div>
     <div className='itemListContainer'>
-        <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={28} currentPage={burgersCurrentPage}/>
+        {!searchValue && !filterFavorites && <ItemPagination onGetCurrentPage={getCurrentPageHandler} totalAmount={28} currentPage={burgersCurrentPage}/>}
         {!isLoading && burgersOnShow.length > 0 && !filterFavorites && <ItemList products={burgersOnShow}/>}
         {!isLoading && faveBurgers.length > 0 && filterFavorites && <ItemList products={faveBurgers}/> }
         {!isLoading && burgersOnShow.length === 0 && <p>No results...</p>}

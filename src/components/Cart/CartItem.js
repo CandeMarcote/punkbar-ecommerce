@@ -10,10 +10,12 @@ const CartItem = ({product}) => {
     
     function hideDetailHandler() {
         setShowDetail(false)
+        document.body.classList.remove('noscroll');
     }
 
     function showDetailHandler(e) {
         setShowDetail(true);
+        document.body.classList.add('noscroll');
     }
 
     function removeItemHandler(e) {
@@ -32,6 +34,7 @@ const CartItem = ({product}) => {
             ibu: product.ibu,
             abv: product.abv,
             img: product.img,
+            ingredients: product.ingredients,
             amount: 1,
         })
     }

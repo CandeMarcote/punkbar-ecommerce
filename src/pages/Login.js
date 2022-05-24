@@ -55,24 +55,21 @@ const Login = (props) => {
 
 
   return (
-    <>
+    <main className='login'>
     {!props.logStatus && (
       <Card>
         <h3>Login</h3>
-        <br />
         <form onSubmit={loginHandler}>
           <div>
             <label htmlFor="email">E-mail or username </label>
             <input className={!emailInput && emailWasTouched? 'invalid' : ''} onBlur={emailBlurHandler} type="text" id='email' placeholder='type here' onChange={emailChangeHandler} />
           </div>
-          <br />
           <div>
             <label htmlFor="password">Password </label>
             <input className={!passwordInput && passwordWasTouched? 'invalid' : ''} onBlur={passwordBlurHandler} type="password" id="password" placeholder='type here' onChange={passwordChangeHandler} />
           </div>
-          <br />
           {!formIsValid && emailWasTouched && passwordWasTouched && <p>Your e-mail, username or password is incorrect!</p>}
-          {!props.logStatus && <button type='submit' disabled={!emailInput || !passwordInput}>Log in</button>}
+          {!props.logStatus && <button type='submit' className='loginBtn' disabled={!emailInput || !passwordInput}>Log in</button>}
         </form>
       </Card>)}
       {props.logStatus && (
@@ -81,7 +78,7 @@ const Login = (props) => {
         <button type='submit' onClick={logoutHandler}>Log out</button>
       </Card>
       )}
-    </>
+    </main>
 
   )
 }

@@ -6,13 +6,17 @@ const amountOfItemsPerPage = 10;
 
 const ItemPagination = (props) => {
     const [currentPage, setCurrentPage] = useState(Number(props.currentPage) || 1);
+    const [prevBtnIsDisabled, setPrevBtnIsDesabled] = useState(false);
+    const [nextBtnIsDisabled, setNextBtnIsDesabled] = useState(false);
     const totalAmount = props.totalAmount;
     const lastPage = Math.ceil(totalAmount/amountOfItemsPerPage);
     
     function nextPageHandler() {
         const nextPage = currentPage + 1;
+        setPrevBtnIsDesabled(false);
 
         if(nextPage > lastPage) {
+            setNextBtnIsDesabled(true)
             return;
         }
         setCurrentPage(nextPage);
@@ -20,8 +24,10 @@ const ItemPagination = (props) => {
 
     function prevPageHandler() {
         const prevPage = currentPage - 1;
+        setNextBtnIsDesabled(false);
 
         if(prevPage < 1) {
+            setPrevBtnIsDesabled(true);
             return;
         }
         setCurrentPage(prevPage);
@@ -29,10 +35,14 @@ const ItemPagination = (props) => {
 
     function goToFirstPage() {
         setCurrentPage(1)
+        setNextBtnIsDesabled(false);
+        setPrevBtnIsDesabled(true);
     }
     
     function goToLastPage() {
         setCurrentPage(lastPage)
+        setPrevBtnIsDesabled(false);
+        setNextBtnIsDesabled(true);
     }
 
     useEffect(()=>{
@@ -41,11 +51,11 @@ const ItemPagination = (props) => {
 
     return (
         <div className='pagination'>
-            <button onClick={goToFirstPage}> {'<<'} </button>
-            <button onClick={prevPageHandler}>{'<'}</button>
+            <button disabled={prevBtnIsDisabled} onClick={goToFirstPage}> {'<<'} </button>
+            <button disabled={prevBtnIsDisabled} onClick={prevPageHandler}>{'<'}</button>
             <p> Page {currentPage}</p>
-            <button onClick={nextPageHandler}>{'>'}</button>
-            <button onClick={goToLastPage}> {'>>'} </button>
+            <button disabled={nextBtnIsDisabled} onClick={nextPageHandler}>{'>'}</button>
+            <button disabled={nextBtnIsDisabled} onClick={goToLastPage}> {'>>'} </button>
         </div>
     )
 }

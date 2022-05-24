@@ -2,6 +2,11 @@ main{
     margin-top: 2em;
 }
 
+
+.noscroll {
+    overflow: hidden;
+}
+
 .Beers {
     display: flex;
 }
@@ -9,6 +14,43 @@ main{
 .Beers .filterContainer {
     display: flex;
     flex-direction: column;
+}
+
+button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+button:active {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+
+.login {
+    margin-inline: auto;
+    background-color: var(--clr-black-border);
+    padding: 1rem;
+    max-width: fit-content;
+    border-radius: 0.2em;
+}
+
+.login .invalid {
+    box-shadow: 0 0 5px 1px var(--clr-red-b);
+    border: solid 1px var(--clr-red-b);
+}
+
+.login input {
+    margin: 1rem .5rem;
+}
+
+.login .loginBtn {
+    margin-top: 1rem;
+}
+
+button:disabled {
+    background-color: grey;
+    cursor:not-allowed;
 }
 
 /* media queries */

@@ -15,10 +15,10 @@ const Header = (props) => {
   return (
   <header className='header'>
     <div>
-      <NavLink to='/cart' activeClassName='active'><HeaderCartButton/></NavLink>
+      <NavLink to='/cart' activeClassName='active'><HeaderCartButton logStatus={props.logStatus}/></NavLink>
       <Link to='/home'><h1 className='header__title'>Punk API</h1></Link>
     </div>
-    <BurgerMenu>
+    {props.logStatus && <BurgerMenu>
     <nav className='nav'>
         <ul>
             <div>
@@ -31,7 +31,7 @@ const Header = (props) => {
             <li><button onClick={loginHandler}><p>Log out</p></button></li>
         </ul>
     </nav>
-    </BurgerMenu>
+    </BurgerMenu>}
 
   </header>
   )

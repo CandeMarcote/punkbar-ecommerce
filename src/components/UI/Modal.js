@@ -2,11 +2,12 @@ import React from 'react';
 import '../../styles/modal.css';
 import ReactDOM from 'react-dom';
 
+
 const Backdrop = (props) =>  {
   return <div className='backdrop' onClick={props.onClose} />
 }
 const ModalOverlay = (props) => {
-  return <div className='modal'>{props.children}</div>
+  return (<div className='modal'> <div>{props.children}</div> </div>)
 }
 
 const Modal = (props) => {

@@ -12,12 +12,14 @@ const HeaderCartButton = (props) => {
     }, 0)
 
   return (
-    <button  className='cartButton'>
+    <>
+    {props.logStatus && <button  className='cartButton'>
         <div>
             <FontAwesomeIcon icon={faCartShopping} className='cartIcon'/>
             <div className='cartItemsNumber'>{numberOfItems}</div>
         </div>
-    </button>
+    </button>}
+    </>
   )
 }
 
