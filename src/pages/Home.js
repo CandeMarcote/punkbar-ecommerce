@@ -6,7 +6,6 @@ const Home = () => {
   return (
     <>
       <div className='home'>*awesome home page*</div>
-      <Spinner />
     </>
   )
 }

@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
 import '../styles/main.css';
-
-const userEmail = '123@gmail.com';
-const userPassword = '123456';
-const userName = '123';
+import getRequestData from '../services/services';
 
 const Login = (props) => {
   const [emailInput, setEmailInput] = useState('');
@@ -13,6 +10,25 @@ const Login = (props) => {
   const [emailWasTouched, setEmailWasTouched] = useState(false);
   const [passwordWasTouched, setPasswordWasTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [user, setUser] = useState([]);
+
+  //bind the front and the back for login test
+
+  let getFetch = async () => {
+    let resp = undefined;
+    const url = "http://localhost:8080/users";
+    //const url = "https://api.punkapi.com/v2/beers/1" 
+    resp = await getRequestData(url)
+
+    const existingItem =resp.filter(user => (user.username === emailInput) || (user.email === emailInput));
+    setUser(existingItem)
+  }
+  
+  useEffect(()=> {
+    getFetch();
+}, [emailInput])
+  
+  //finish test binding
 
   let history = useHistory();
 
@@ -39,13 +55,14 @@ const Login = (props) => {
     setEmailWasTouched(true);
     setPasswordWasTouched(true);
 
-    if(emailInput === userEmail && passwordInput === userPassword || emailInput === userName && passwordInput === userPassword) {
+    if(user.length === 0) {
+      setFormIsValid(false)
+    }
+
+    if(emailInput === user[0].email && passwordInput === user[0].password || emailInput === user[0].username && passwordInput === user[0].password) {
       setFormIsValid(true);
       props.onLogin(true);
       history.push('/home');
-    } else {
-      setFormIsValid(false);
-      return;
     }
   }
 
