@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import CartContext from "./cart-context";
 import FavoritesContext from "./favorites-context";
+import postRequestData from "../services/postService";
+import deleteRequestData from "../services/deleteService";
+import getRequestData from "../services/services";
+
+getRequestData(http://localhost:8080/favorites/)
 
 const ContextProvider = (props) => {
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || []);
@@ -72,11 +77,26 @@ const ContextProvider = (props) => {
       const existingItemIndex = favorites.findIndex(element => element.id === item.id);
       const existingItem = favorites[existingItemIndex];
       let updatedItems = undefined;
+
+      console.log('inside the function')
       
       if(!existingItem) {
-        updatedItems = [...favorites, item];
+        const url = "http://localhost:8080/favorites/";
+        const theItem = {
+          productNumber: item.id,
+          name: item.name,
+          category: item.type,
+          userId: 3,
+        }
         
+        postRequestData(url, theItem);
+        updatedItems = [...favorites, item];
       } else {
+        console.log("inside the else statement for the delete request")
+        const userId = 3;
+        const favoriteId = 18;
+        const url = `http://localhost:8080/favorites/users/${userId}/favorite/${favoriteId}`;
+        deleteRequestData(url);
         updatedItems = favorites.filter(element => element.id !== item.id);
       }
       setFavorites(updatedItems)

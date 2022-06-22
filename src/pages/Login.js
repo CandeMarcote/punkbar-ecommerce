@@ -17,7 +17,6 @@ const Login = (props) => {
   let getFetch = async () => {
     let resp = undefined;
     const url = "http://localhost:8080/users";
-    //const url = "https://api.punkapi.com/v2/beers/1" 
     resp = await getRequestData(url)
 
     const existingItem =resp.filter(user => (user.username === emailInput) || (user.email === emailInput));
