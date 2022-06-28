@@ -11,7 +11,7 @@ const FavoritesListContainer = () => {
     const [beers, setBeers] = useState([]);
     const [burgers, setBurgers] = useState([]);
 
-    let getFetch = async (category, id) => {
+    /*let getFetch = async (category, id) => {
       if(category === "beer") {
         let response = await getRequestData(`https://api.punkapi.com/v2/beers/${id}`);
         const transformData = response.map(product => {
@@ -28,7 +28,7 @@ const FavoritesListContainer = () => {
         })
         console.log(transformData)
         //aca hacer una funcion que concatene los resultados
-        //setBeers([...beers, transformData]);
+        setBeers([...beers, transformData]);
 
       } else {
         let response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${id}`)
@@ -49,9 +49,9 @@ const FavoritesListContainer = () => {
       //aca hacer una funcion que concatene los resultados
        setBurgers(transformData)
       }
-    }
+    }*/
 
-    let fetchDB = async () => {
+    /*let fetchDB = async () => {
       const url = "http://localhost:8080/favorites";
       let resp = await getRequestData(url);
 
@@ -70,11 +70,11 @@ const FavoritesListContainer = () => {
     useEffect(()=> {
       fetchDB();
       console.log(beers)
-    }, [searchValue])
-    /*const favoritesCtx = useContext(FavoritesContext);
+    }, [searchValue])*/
+    const favoritesCtx = useContext(FavoritesContext);
 
     const existingItem = favoritesCtx.items.filter(item => item.name.toLowerCase().trim() === searchValue.toLowerCase().trim());
-*/
+
 
 
     function getSearchValueHandler(val) {
@@ -87,7 +87,7 @@ const FavoritesListContainer = () => {
         <div className='filterContainer'>
           <SearchByName onGetSearchValue={getSearchValueHandler}/>
         </div>
-        {/*!searchValue ? <FavoritesList items={favoritesCtx.items}/> : <FavoritesList items={existingItem}/>*/}
+        {!searchValue ? <FavoritesList items={favoritesCtx.items}/> : <FavoritesList items={existingItem}/>}
     </div>
   )
 }

@@ -9,7 +9,6 @@ const Login = (props) => {
   const [emailWasTouched, setEmailWasTouched] = useState(false);
   const [passwordWasTouched, setPasswordWasTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
-  const [userId, setUserId] = useState(-1);
   //bind the front and the back for login test
 
   let postRequest = async () => {
@@ -20,16 +19,14 @@ const Login = (props) => {
       email: emailInput,
       password: passwordInput
     })
-
+    console.log(resp)
     if(resp === -1) {
-      props.onLogin(false);
+      props.onLogin(false, resp);
     } else {
-      setUserId(resp);
-      props.onLogin(true);
+      props.onLogin(true, resp);
     }
   }
   //finish test binding
-
   let history = useHistory();
 
   function emailChangeHandler(e){
@@ -63,12 +60,10 @@ const Login = (props) => {
   }
 
   function logoutHandler(e) {
-    setUserId(-1);
     setEmailInput('')
     setEmailWasTouched(false)
-    props.onLogin(false);
+    props.onLogin(false, -1);
   }
-
 
   return (
     <main className='login'>

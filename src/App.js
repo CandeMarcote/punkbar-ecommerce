@@ -12,14 +12,13 @@ import Login from './pages/Login';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false)
-<<<<<<< HEAD
-=======
   const [userId, setUserId] = useState(1);
->>>>>>> b300187a556d8350e5f9c1f4e76f370b4953a12a
 
-  function loginHandler(logStatus) {
+  function loginHandler(logStatus, theUserId) {
     setIsLoggedIn(logStatus);
+    setUserId(theUserId);
   }
+  console.log(userId)
 
   useEffect(()=>{
     localStorage.setItem('isLoggedIn', isLoggedIn)
@@ -27,12 +26,12 @@ const App = () => {
 
   return (
     <>
-      <ContextProvider>
-      <Header onLogin={loginHandler} logStatus={isLoggedIn}/>
+      <ContextProvider userId={userId}>
+      <Header onLogin={loginHandler} logStatus={isLoggedIn} onUserId={userId}/>
       <>
         <Switch>
           <Route path='/login'>
-            <Login onLogin={loginHandler} logStatus={isLoggedIn}/>
+            <Login onLogin={loginHandler} logStatus={isLoggedIn} onUserId={userId}/>
           </Route>
 
         {!isLoggedIn && <Route path='/*'>

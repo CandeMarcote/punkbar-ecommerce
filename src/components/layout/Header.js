@@ -8,7 +8,7 @@ const Header = (props) => {
   let history = useHistory();
 
   function loginHandler(){
-    props.onLogin(false)
+    props.onLogin(false, -1)
     history.push('/login')
   }
 
