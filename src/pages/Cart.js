@@ -3,11 +3,13 @@ import React from 'react';
 import CartContext from '../store/cart-context';
 import CartItem from '../components/Cart/CartItem';
 import Modal from '../components/UI/Modal';
-import '../styles/cartItems.css'
+import '../styles/cartItems.css';
+import postRequestData from '../services/postService';
 
 const Cart = () => {
     const cartCtx = useContext(CartContext);
     const [showModal, setShowModal] = useState(false);
+    const theUserId = 28;
 
     const isCartPopulated= Boolean(cartCtx.items.length);
 
@@ -21,6 +23,8 @@ const Cart = () => {
 
     function orderHandler() {
       showModalHander();
+      const url = `http://localhost:8080/orderItems/place_order?userId=${theUserId}`;
+      postRequestData(url)
       cartCtx.clearCart();
     }
 

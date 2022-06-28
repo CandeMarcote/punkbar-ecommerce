@@ -2,31 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
 import '../styles/main.css';
-import getRequestData from '../services/services';
-
+import postRequestData from '../services/postService';
 const Login = (props) => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [emailWasTouched, setEmailWasTouched] = useState(false);
   const [passwordWasTouched, setPasswordWasTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
-  const [user, setUser] = useState([]);
-
+  const [userId, setUserId] = useState(-1);
   //bind the front and the back for login test
 
-  let getFetch = async () => {
+  let postRequest = async () => {
     let resp = undefined;
-    const url = "http://localhost:8080/users";
-    resp = await getRequestData(url)
+    const url="http://localhost:8080/users/login";
+    
+    resp = await postRequestData(url, {
+      email: emailInput,
+      password: passwordInput
+    })
 
-    const existingItem =resp.filter(user => (user.username === emailInput) || (user.email === emailInput));
-    setUser(existingItem)
+    if(resp === -1) {
+      props.onLogin(false);
+    } else {
+      setUserId(resp);
+      props.onLogin(true);
+    }
   }
-  
-  useEffect(()=> {
-    getFetch();
-}, [emailInput])
-  
   //finish test binding
 
   let history = useHistory();
@@ -54,18 +55,17 @@ const Login = (props) => {
     setEmailWasTouched(true);
     setPasswordWasTouched(true);
 
-    if(user.length === 0) {
-      setFormIsValid(false)
-    }
+    postRequest();
 
-    if(emailInput === user[0].email && passwordInput === user[0].password || emailInput === user[0].username && passwordInput === user[0].password) {
-      setFormIsValid(true);
-      props.onLogin(true);
+    if(props.logStatus && formIsValid) {
       history.push('/home');
     }
   }
 
   function logoutHandler(e) {
+    setUserId(-1);
+    setEmailInput('')
+    setEmailWasTouched(false)
     props.onLogin(false);
   }
 
@@ -77,7 +77,7 @@ const Login = (props) => {
         <h3>Login</h3>
         <form onSubmit={loginHandler}>
           <div>
-            <label htmlFor="email">E-mail or username </label>
+            <label htmlFor="email">E-mail </label>
             <input className={!emailInput && emailWasTouched? 'invalid' : ''} onBlur={emailBlurHandler} type="text" id='email' placeholder='type here' onChange={emailChangeHandler} />
           </div>
           <div>
