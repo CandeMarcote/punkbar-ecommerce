@@ -1,0 +1,137 @@
+
+/* HEADER */
+
+.header {
+    display: flex;
+    background-color: var(--clr-black);
+    border-bottom: 2px solid var(--clr-black-border);
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    height: max-content;
+    padding-bottom: 1.5rem;
+    position: sticky;
+     top: 0;
+
+    z-index: 900;
+}
+
+.header > div {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.header__title {
+    text-align: right;
+    text-decoration: none;
+    color: var(--clr-red-m);
+    letter-spacing: 0.2rem;
+    margin-right: 1.5rem;
+}
+
+.header nav ul li {
+    letter-spacing: 0.15rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-decoration: none;
+    list-style: none;
+    margin-block: 1rem;
+}
+
+.active {
+    text-decoration: none;
+    color: var(--clr-green)
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-black);
+}
+
+a:hover {
+    color: var(--clr-green);
+}
+
+/* header cart button */
+.cartButton {
+    background-color: var(--clr-black);
+    box-shadow: none;
+    font-size: 1.2rem;
+    width: 3em;
+    height: 2em;
+    position: relative;
+    padding-block: 0.5rem;
+}
+
+.cartIcon {
+    width: 2rem;
+    aspect-ratio: 1;
+}
+
+/* burger menu */
+
+.burgerMenuContainer {
+    height: 2em;
+    opacity: 0.8;
+}
+
+.burgerMenuContainer:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.burgerMenuContainer:active {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.middleLine, .middleLine::before, .middleLine::after {
+    background-color: var(--clr-red-m);
+    height: 3px;
+    width: 2rem;
+    border-radius: 2em;
+    z-index: 1000;
+}
+
+.middleLine{
+    position: relative;
+}
+
+.middleLine::before {
+    content: '';
+    position: absolute;
+        top: 0.5rem;
+}
+
+.middleLine::after {
+    content: '';
+    position: absolute;
+        top: 1rem;
+}
+
+.content {
+    text-align: left;
+    max-width: max-content;
+    max-height: max-content;
+    background-color: var(--clr-purple);
+    padding: 5rem 2rem 1.5rem 4rem;
+    position: absolute;
+     top:-3rem;
+     left: -3rem;
+    border-bottom-right-radius: 2em;
+}
+
+.cartItemsNumber {
+    background-color: var(--clr-red-m);
+    color: var(--clr-black-border);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 20px;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+        right: 7%;
+        top: -10%;
+}

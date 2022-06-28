@@ -1,0 +1,71 @@
+.spinnerContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+
+    --w-spinner: 5em;
+}
+
+.outer-spinner {
+    grid-column: 1/3;
+    grid-row: 1/3;
+    width: var(--w-spinner);
+    aspect-ratio: 1;
+    border-left: solid 3px var(--clr-green);
+    border-radius: 50%;
+    transform: rotate(0);
+    position: relative;
+    display: grid;
+    place-content: center;
+    animation: spinner-clockwise 1s linear infinite;
+}
+
+
+.inner-spinner {
+    grid-column: 1/3;
+    grid-row: 1/3;
+    width: calc(var(--w-spinner)/1.7);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border-right: solid 3px var(--clr-red-m);;
+
+    animation: spinner-counterClockwise 1s linear infinite;
+    transform: rotate(-360deg);
+}
+
+@keyframes spinner-clockwise {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner-counterClockwise {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-90deg);
+    }
+    50% {
+        transform: rotate(-180deg);
+    }
+    75% {
+        transform: rotate(-270deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}

@@ -1,0 +1,73 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+
+    /*nomenclatura:
+    clr: color,
+    b / bdr: border,
+    -t: transparent,
+    -b: bright,
+    -m: mild,
+    -VO: values only*/
+    --clr-black: hsl(0, 10%, 10%);
+    --clr-black-t: hsla(0, 0%, 20%, 0.5);
+    --clr-black-border: hsl(0, 30%, 5%);
+    --clr-green: hsl(127, 100%, 76%);
+    --clr-red-b: hsl(9, 100%, 50%);
+    --clr-red-m: hsl(18, 100%, 62%);
+    --clr-yellow: hsl(54, 100%, 50%);
+    --clr-purple: hsl(280, 45%, 50%);
+
+    --clr-font-w: #ffffff;
+    --clr-font-b: #000000;
+    
+    --clr-green-VO: 127, 40%, 50%;
+    --clr-red-b-VO: 9, 100%, 50%;
+    --clr-red-m-VO: 18, 100%, 62%;
+    --clr-yellow-VO: 54, 100%, 50%;
+    --clr-purple-VO: 280, 30%, 50%;
+
+    --b-1: solid 2px red;
+    --bdr-2: solid blue 2px;
+}
+
+body {
+    background: url('./images/colorful-hippie-psychedelic-abstract-doodle-art-vector-24318373.jpg');
+    background-size: auto;
+}
+
+#root {
+    background-color: var(--clr-black);
+    width: 75vw;
+    height: 100%;
+    margin-inline: auto;
+    padding: 3rem;
+    min-height: 100vh;
+}
+
+* {
+    color:aliceblue
+}
+
+input {
+    background-color: var(--clr-black-border);
+    border-color: var(--clr-black-border);
+    box-shadow: 0px 0px 3px 0px darkgray;
+    border-radius: 0.2rem;
+    color: white;
+}
+
+button{
+    border: none;
+}
+
+
+@media screen and (max-width: 600px) {
+    #root{
+        width: 90vw;
+    }
+}

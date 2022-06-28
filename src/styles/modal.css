@@ -1,0 +1,23 @@
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--clr-black);
+    border-radius: 0.2rem;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
+}

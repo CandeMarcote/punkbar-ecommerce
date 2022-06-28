@@ -1,0 +1,63 @@
+/* .itemListContainer */
+
+.Beers .itemListContainer {
+    width: 90%;
+    padding-inline: 1rem;
+}
+
+.Beers .itemListContainer .itemList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-content: center;
+}
+@media screen and (max-width:800px) {
+    .Beers .itemListContainer .itemList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .Beers .itemListContainer .itemList {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        justify-content: center;
+    }
+}
+
+/* pagination and filter */
+.container {
+    color: white;
+}
+
+.pagination {
+    display:flex;
+    place-content: center;
+    margin: 1rem;
+}
+
+.pagination > p, button {
+    margin-inline: 0.3rem;
+}
+.pagination>p {
+    height: max-content;
+}
+
+.pagination button {
+    background-color: var(--clr-black);
+    box-shadow: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    
+    height: max-content;
+    padding-block: 0;
+}
+
+h5 {
+    font-size: 1.3rem;
+}

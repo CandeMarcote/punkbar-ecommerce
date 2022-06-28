@@ -1,0 +1,86 @@
+.itemDetail {
+    display: grid;
+    gap: 2rem;
+    height: 100%;
+    padding: 3rem;
+
+    max-width: 50vw;
+}
+
+.burger__itemDetail {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 2rem auto;
+    grid-template-areas:
+    "title title"
+    "img  ingredients"
+    "img  fave";
+}
+
+.beer__itemDetail {
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 2rem auto;
+    grid-template-areas:
+    "title title"
+    "img  description"
+    "img  fave";
+    justify-items: center;
+}
+
+.itemDetail h3 {
+    grid-area: title;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.beer__itemDetail .detailImgContainer {
+    background-color: antiquewhite;
+    padding: 1rem;
+    border-radius: 0.2rem;
+}
+
+.beer__itemDetail img {
+    max-height: 200px;
+    width: auto;
+}
+
+.beer__itemDetail .description {
+    max-width: 40ch;
+}
+
+.burger__itemDetail img {
+    grid-area: img;
+    width: 100%;
+    border-radius: 0.2rem;
+}
+
+.itemDetail .ingredients {
+    grid-area: ingredients;
+}
+
+.itemDetail .ingredients div h6{
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    text-align: left;
+}
+
+.itemDetail .ingredients div ul li{
+    font-size: 1.2rem;
+    list-style: inside;
+    text-transform: capitalize;
+}
+
+.itemDetail .fave {
+    grid-area: fave;
+    background-color: none;
+    box-shadow: none;
+}
+.itemDetail .fave{
+    font-size: 2rem;
+    color: var(--clr-red-m);
+    padding: 0.3rem;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--clr-black);
+    box-shadow: none;
+    border: none;
+}
