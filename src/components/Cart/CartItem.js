@@ -43,7 +43,7 @@ const CartItem = ({product}) => {
         cartCtx.removeAllUnits(product.id)
     }
 
-  return (
+  /*return (
       <>
     <div className='cartItemsContainer' onClick={showDetailHandler}>
         <div className='cartItemInfo'>
@@ -68,7 +68,7 @@ const CartItem = ({product}) => {
     </div>
         {showDetail && <ItemDetail product={product} onClose={hideDetailHandler}/>}
     </>
-  )
+  )*/
 }
 
 export default CartItem

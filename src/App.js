@@ -14,8 +14,9 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false)
   const [userId, setUserId] = useState(1);
 
-  function loginHandler(logStatus) {
+  function loginHandler(logStatus, theUserId) {
     setIsLoggedIn(logStatus);
+    setUserId(theUserId);
   }
 
   useEffect(()=>{
@@ -24,12 +25,12 @@ const App = () => {
 
   return (
     <>
-      <ContextProvider>
-      <Header onLogin={loginHandler} logStatus={isLoggedIn}/>
+      <ContextProvider userId={userId}>
+      <Header onLogin={loginHandler} logStatus={isLoggedIn} onUserId={userId}/>
       <>
         <Switch>
           <Route path='/login'>
-            <Login onLogin={loginHandler} logStatus={isLoggedIn}/>
+            <Login onLogin={loginHandler} logStatus={isLoggedIn} onUserId={userId}/>
           </Route>
 
         {!isLoggedIn && <Route path='/*'>
@@ -56,7 +57,7 @@ const App = () => {
             </Route>
 
             <Route path='/cart'>
-              <Cart />
+              <Cart userId={userId}/>
             </Route>
 
             <Route path='/favorites'>

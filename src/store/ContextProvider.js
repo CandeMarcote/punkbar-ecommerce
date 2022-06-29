@@ -6,19 +6,24 @@ import deleteRequestData from "../services/deleteService";
 import getRequestData from "../services/services";
 import putRequestData from "../services/putService";
 
-getRequestData("http://localhost:8080/favorites/")
-
 const ContextProvider = (props) => {
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || []);
     const [totalAmount, setTotalAmount] = useState(0);
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
-    const theUserId = 28;
+    const theUserId = props.userId;
 
     useEffect(()=> {
-      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-    }, [cartProducts, favorites]);
+      //localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+      //localStorage.setItem('favorites', JSON.stringify(favorites));
+      getFetch();
+    }, [/*cartProducts, favorites*/]);
 
+    //GET ITEMS FROM DB
+    let getFetch = async () => {
+      const url = `http://localhost:8080/cartItems/all?userId=${theUserId}`;
+      const res = await getRequestData(url);
+      setCartProducts(res);
+    }
     
     //ADDING ITEMS TO THE CART
     function AddItemToCartHandler (item) {
