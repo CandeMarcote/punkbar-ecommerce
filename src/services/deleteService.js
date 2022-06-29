@@ -1,5 +1,4 @@
 const deleteRequestData = async (url, data) => {
-    console.log('start of the DELETE request')
     let resData = await fetch(url, {
         method: 'DELETE',
         headers:{
@@ -14,7 +13,6 @@ const deleteRequestData = async (url, data) => {
         (error) => { 
             return error 
         });
-        console.log('end of the DELETE request')
     return resData;
 }
 

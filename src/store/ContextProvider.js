@@ -13,17 +13,17 @@ const ContextProvider = (props) => {
     const theUserId = props.userId;
 
     useEffect(()=> {
-      //localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-      //localStorage.setItem('favorites', JSON.stringify(favorites));
-      getFetch();
-    }, [/*cartProducts, favorites*/]);
+      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      //getFetch();
+    }, [cartProducts, favorites]);
 
     //GET ITEMS FROM DB
-    let getFetch = async () => {
+    /*let getFetch = async () => {
       const url = `http://localhost:8080/cartItems/all?userId=${theUserId}`;
       const res = await getRequestData(url);
       setCartProducts(res);
-    }
+    }*/
     
     //ADDING ITEMS TO THE CART
     function AddItemToCartHandler (item) {
@@ -118,15 +118,18 @@ const ContextProvider = (props) => {
       setTotalAmount(clearAmount);
       deleteRequestData(`http://localhost:8080/cartItems/deleteAll`);
     }
-    
+
+    function clearFavorites() {
+      const clearFavorites = [];
+      const clearAmount = 0;
+      setFavorites(clearFavorites);
+    }    
 
     //TOGGLE FAVORITES
     function toggleFavoriteHandler(item){
       const existingItemIndex = favorites.findIndex(element => element.id === item.id);
       const existingItem = favorites[existingItemIndex];
       let updatedItems = undefined;
-
-      console.log('inside the function')
       
       const theItem = {
         productNumber: item.id,
@@ -139,8 +142,7 @@ const ContextProvider = (props) => {
         postRequestData(url, theItem);
         updatedItems = [...favorites, item];
       } else {
-        console.log("inside the else statement for the delete request")
-        const url = `http://localhost:8080/favorites/`;
+        const url = `http://localhost:8080/favorites/${theUserId}`;
         deleteRequestData(url, theItem);
         updatedItems = favorites.filter(element => element.id !== item.id);
       }
@@ -159,6 +161,7 @@ const ContextProvider = (props) => {
     const favoritesContext = {
       items: favorites,
       toggleItem: toggleFavoriteHandler,
+      clearFavorites: clearFavorites,
     }
 
   return (

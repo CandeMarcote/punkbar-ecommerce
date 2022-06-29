@@ -5,17 +5,14 @@ import CartItem from '../components/Cart/CartItem';
 import Modal from '../components/UI/Modal';
 import '../styles/cartItems.css';
 import postRequestData from '../services/postService';
-import getRequestData from '../services/services';
+//import getRequestData from '../services/services';
 
 const Cart = ({userId}) => {
     const cartCtx = useContext(CartContext);
-    const [productsFromApi, setProductsFromApi] = useState([]);
+    //const [productsFromApi, setProductsFromApi] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const theUserId = userId;
     const isCartPopulated= Boolean(cartCtx.items.length);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(()=>{
+    /*useEffect(()=>{
       getFetch();
     },[cartCtx.items])
 
@@ -47,7 +44,7 @@ const Cart = ({userId}) => {
         }
       }
       setIsLoading(false);
-    }
+    }*/
 
     function showModalHander() {
       setShowModal(true);
@@ -59,21 +56,24 @@ const Cart = ({userId}) => {
 
     function orderHandler() {
       showModalHander();
-      const url = `http://localhost:8080/orderItems/place_order?userId=${theUserId}`;
+
+      console.log(userId)
+      const url = `http://localhost:8080/orderItems/place_order?userId=${userId}`;
       postRequestData(url)
       cartCtx.clearCart();
     }
 
-      const cartItems = productsFromApi.map(item => {
+      /*const cartItems = productsFromApi.map(item => {
         return <CartItem key={item.id} product={item} />
-      })
-    // const cartItems = cartCtx.items.map(item => {
-    //     return <CartItem key={item.id} product={item} />
-    // })
+      })*/
+
+     const cartItems = cartCtx.items.map(item => {
+         return <CartItem key={item.id} product={item} />
+     })
 
   return (
     <main className='cart'>
-        {isCartPopulated && !isLoading && cartItems}
+        {isCartPopulated && cartItems}
         {!isCartPopulated && <p className='emptyCart'>There are no items in the cart yet...</p>}
         {isCartPopulated && <button onClick={orderHandler} className='orderButton'>Order now!</button>}
         {showModal && <Modal onClose={hideModalHandler}>

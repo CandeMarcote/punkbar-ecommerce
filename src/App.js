@@ -18,7 +18,6 @@ const App = () => {
     setIsLoggedIn(logStatus);
     setUserId(theUserId);
   }
-  console.log(userId)
 
   useEffect(()=>{
     localStorage.setItem('isLoggedIn', isLoggedIn)

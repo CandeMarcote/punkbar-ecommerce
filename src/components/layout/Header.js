@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink, useHistory, Link } from 'react-router-dom';
 import HeaderCartButton from '../Cart/HeaderCartButton';
 import '../../styles/header.css';
 import BurgerMenu from '../UI/BurgerMenu';
+import CartContext from '../../store/cart-context';
+import FavoritesContext from '../../store/favorites-context';
 
 const Header = (props) => {
   let history = useHistory();
+  const cartCtx = useContext(CartContext);
+  const favoritesCtx=useContext(FavoritesContext);
 
   function loginHandler(){
     props.onLogin(false, -1)
+    cartCtx.clearCart();
+    favoritesCtx.clearFavorites();
     history.push('/login')
   }
 

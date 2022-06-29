@@ -1,5 +1,4 @@
 const putRequestData = async (url, data) => {
-    console.log('start of the PUT request')
     let resData = await fetch(url, {
         method: 'PUT',
         headers:{
@@ -14,7 +13,6 @@ const putRequestData = async (url, data) => {
         (error) => { 
             return error 
         });
-        console.log('end of the PUT request')
     return resData;
 }
 

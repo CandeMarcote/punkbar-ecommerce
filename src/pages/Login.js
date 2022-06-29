@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
 import '../styles/main.css';
 import postRequestData from '../services/postService';
+import CartContext from '../store/cart-context';
+import FavoritesContext from '../store/favorites-context';
+
 const Login = (props) => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [emailWasTouched, setEmailWasTouched] = useState(false);
   const [passwordWasTouched, setPasswordWasTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
-  //bind the front and the back for login test
+  const cartCtx = useContext(CartContext);
+  const favoritesCtx = useContext(FavoritesContext);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {})
+
+  useEffect(()=> {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user])
 
   let postRequest = async () => {
     let resp = undefined;
@@ -19,13 +28,14 @@ const Login = (props) => {
       email: emailInput,
       password: passwordInput
     })
+    setUser(resp);
     if(resp === -1) {
       props.onLogin(false, resp.id);
     } else {
       props.onLogin(true, resp.id);
     }
   }
-  //finish test binding
+
   let history = useHistory();
 
   function emailChangeHandler(e){
@@ -61,7 +71,10 @@ const Login = (props) => {
   function logoutHandler(e) {
     setEmailInput('')
     setEmailWasTouched(false)
+    cartCtx.clearCart();
+    favoritesCtx.clearFavorites();
     props.onLogin(false, -1);
+    setUser({});
   }
 
   return (
@@ -84,7 +97,8 @@ const Login = (props) => {
       </Card>)}
       {props.logStatus && (
       <Card>
-        <h2>You're logged in</h2>
+        <h2>Welcome {user.username}!</h2>
+        <br/>
         <button type='submit' onClick={logoutHandler}>Log out</button>
       </Card>
       )}
