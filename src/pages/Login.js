@@ -18,6 +18,7 @@ const Login = (props) => {
 
   useEffect(()=> {
     localStorage.setItem('user', JSON.stringify(user));
+    console.log(user)
   }, [user])
 
   let postRequest = async () => {
@@ -28,6 +29,7 @@ const Login = (props) => {
       email: emailInput,
       password: passwordInput
     })
+    
     setUser(resp);
     if(resp === -1) {
       props.onLogin(false, resp.id);
@@ -72,7 +74,7 @@ const Login = (props) => {
     setEmailInput('')
     setEmailWasTouched(false)
     cartCtx.clearCart();
-    favoritesCtx.clearFavorites();
+    //favoritesCtx.clearFavorites();
     props.onLogin(false, -1);
     setUser({});
   }

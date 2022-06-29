@@ -8,78 +8,109 @@ import getRequestData from '../../services/services';
 const FavoritesListContainer = () => {
     const [searchValue, setSearchValue] = useState('');
     const [favorites, setFavorites] = useState([]);
-    const [beers, setBeers] = useState([]);
-    const [burgers, setBurgers] = useState([]);
+    //const favoritesCtx = useContext(FavoritesContext);
 
-    /*let getFetch = async (category, id) => {
-      if(category === "beer") {
-        let response = await getRequestData(`https://api.punkapi.com/v2/beers/${id}`);
-        const transformData = response.map(product => {
-          return {
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              ibu: product.ibu,
-              abv: product.abv,
-              price: product.ph,
-              img: product.image_url,
+
+
+
+
+
+
+
+
+  
+  
+    const [favoritesFromDB, setFavoritesFromDB] = useState([]);
+    const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
+    const theUserId = 1;
+  
+    useEffect(()=> {
+      getDB()
+    }, []);
+  
+    //GET ITEMS FROM DB
+    let getDB = async () => {
+      setIsFavoritesLoading(true)
+      const url = `http://localhost:8080/favorites/${theUserId}`;
+      const res = await getRequestData(url);
+
+      let beers = []
+      for (let i = 0; i < res.length; i++) {
+        const element = res[i];
+        if(element.category === "beer") {
+          const response = await getRequestData(`https://api.punkapi.com/v2/beers/${element.productNumber}`);
+          const transform = response.map(item => {
+            return {
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              ibu: item.ibu,
+              abv: item.abv,
+              price: item.ph,
+              img: item.image_url,
               type: 'beer',
-          }
-        })
-        console.log(transformData)
-        //aca hacer una funcion que concatene los resultados
-        setBeers([...beers, transformData]);
-
-      } else {
-        let response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${id}`)
-        console.log(response)
-
-        const transformData = response.map(product => {
-          return {
-              id: product.id,
-              name: product.name,
-              ingredients: product.ingredients,
+            }
+          })
+          beers = beers.concat(transform);
+          console.log(beers)
+        } else {
+          const response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${element.productNumber}`);
+          const transform2 = response.map(item => {
+            return {
+              id: item.id,
+              name: item.name,
+              ingredients: item.ingredients,
+              description:item.description,
               price: 10,
               type: 'burger',
-              faved: false,
               img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
           }
-       });
-
-      //aca hacer una funcion que concatene los resultados
-       setBurgers(transformData)
+          })
+          beers = beers.concat(response);
+        }
+        setIsFavoritesLoading(false);
+        if(!isFavoritesLoading) {
+          
+          setFavorites(beers);
+        }
       }
-    }*/
-
-    /*let fetchDB = async () => {
-      const url = "http://localhost:8080/favorites";
-      let resp = await getRequestData(url);
-
-      //separar por usuario que despues lo voy separar en el login lo100to
-      const user1favorites = resp.filter(element => element.userId === 1);
-      setFavorites(user1favorites);
-
-
-      favorites.forEach(element => {
-        getFetch(element.category, element.productNumber)
-        //SEGUIR ACA
-      });
-
     }
     
-    useEffect(()=> {
-      fetchDB();
-      console.log(beers)
-    }, [searchValue])*/
-    const favoritesCtx = useContext(FavoritesContext);
-
-    const existingItem = favoritesCtx.items.filter(item => item.name.toLowerCase().trim() === searchValue.toLowerCase().trim());
+    console.log(favorites)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const existingItem = favorites.filter(item => item.name.toLowerCase().trim() === searchValue.toLowerCase().trim());
 
     function getSearchValueHandler(val) {
       setSearchValue(val);
     }
+    
+    /*useEffect(()=>{
+      setFavorites(favoritesCtx.items)
+      console.log(favoritesCtx.items)
+    },[])*/
 
   return (
     <div className='favoriteItemContainer'>
@@ -87,7 +118,7 @@ const FavoritesListContainer = () => {
         <div className='filterContainer'>
           <SearchByName onGetSearchValue={getSearchValueHandler}/>
         </div>
-        {!searchValue ? <FavoritesList items={favoritesCtx.items}/> : <FavoritesList items={existingItem}/>}
+    {!searchValue ? <FavoritesList items={favorites}/>  : <FavoritesList items={existingItem}/>}
     </div>
   )
 }

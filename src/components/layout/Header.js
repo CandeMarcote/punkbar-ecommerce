@@ -14,7 +14,7 @@ const Header = (props) => {
   function loginHandler(){
     props.onLogin(false, -1)
     cartCtx.clearCart();
-    favoritesCtx.clearFavorites();
+    //favoritesCtx.clearFavorites();
     history.push('/login')
   }
 
