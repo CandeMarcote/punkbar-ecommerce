@@ -32,7 +32,7 @@ const ContextProvider = (props) => {
       const existingItem = cartProducts[existingItemIndex];
       let updatedItems = undefined;
 
-      const url = `http://localhost:8080/cartItems/?userId=${theUserId}`;
+      const url = `http://localhost:8080/cartItems/${theUserId}`;
         if(existingItem) {
           const updatedItem = {
             ...existingItem,
@@ -61,7 +61,7 @@ const ContextProvider = (props) => {
     }
     //REMOVING ITEMS FROM THE CART
     function removeItemFromCart (id) {
-      const url = `http://localhost:8080/cartItems/?userId=${theUserId}`;
+      const url = `http://localhost:8080/cartItems/${theUserId}`;
       const updatedTotalAmount = totalAmount - 1
       const existingProductIndex = cartProducts.findIndex((product) => product.id === id);
       const existingProduct = cartProducts[existingProductIndex];
@@ -95,7 +95,7 @@ const ContextProvider = (props) => {
     }
 
     function removeAllUnits(id) {
-      const url = `http://localhost:8080/cartItems/?userId=${theUserId}`;
+      const url = `http://localhost:8080/cartItems/${theUserId}`;
       const updatedProducts = cartProducts.filter((product) => product.id !== id);
       const updatedTotalAmount = totalAmount - 1;
 
