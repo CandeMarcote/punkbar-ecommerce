@@ -15,7 +15,8 @@ const ToggleFavorite = ({product}) => {
     setIsFaved(existingItem);
   }, [existingItem])
 
-  function toggleFavoriteHandler() {
+  function toggleFavoriteHandler(e) {
+    e.stopPropagation();
     favoritesCtx.toggleItem({
         id: product.id,
         name: product.name,
