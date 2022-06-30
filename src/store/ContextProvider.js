@@ -7,47 +7,23 @@ import getRequestData from "../services/services";
 import putRequestData from "../services/putService";
 
 const ContextProvider = (props) => {
-    const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || []);
+    const [cartProducts, setCartProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [favorites, setFavorites] = useState(/* JSON.parse(localStorage.getItem('favorites')) || */ []);
+    const [favorites, setFavorites] = useState([]);
     const theUserId = props.userId;
+    console.log("user id: " + theUserId)
 
     useEffect(()=> {
-      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-      //localStorage.setItem('favorites', JSON.stringify(favorites));
-      getDB();
-    }, [cartProducts]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
-    //const theUserId = 1;
+      if(theUserId > -1) {
+        getFavoritesFromDB();
+        getCartItemsFromDB();
+      }
+    }, [theUserId]);
   
-    //GET ITEMS FROM DB
-    let getDB = async () => {
-      setIsFavoritesLoading(true)
+    //GET FAVORITES FROM DB
+    let getFavoritesFromDB = async () => {
       const url = `http://localhost:8080/favorites/${theUserId}`;
       const res = await getRequestData(url);
-      console.log(res)
 
       let beers = []
       for (let i = 0; i < res.length; i++) {
@@ -84,42 +60,63 @@ const ContextProvider = (props) => {
           })
           beers = beers.concat(transform);
         }
-        setIsFavoritesLoading(false);
-        if(!isFavoritesLoading) {
-          
-          setFavorites(beers);
-        }
+        setFavorites(beers);
       }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //GET ITEMS FROM DB
-/*     let getFetch = async () => {
-      const url = `http://localhost:8080/cartItems/all?userId=${theUserId}`;
+    //GET CART ITEMS FROM DATABASE
+    let getCartItemsFromDB = async () => {
+      const url = `http://localhost:8080/cartItems/${theUserId}/all`;
       const res = await getRequestData(url);
-      setCartProducts(res);
-    } */
+
+      let items = []
+      for (let i = 0; i < res.length; i++) {
+        const element = res[i];
+        if(element.category === "beer") {
+          const response = await getRequestData(`https://api.punkapi.com/v2/beers/${element.productNumber}`);
+          const transform = response.map(item => {
+            return {
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              ibu: item.ibu,
+              abv: item.abv,
+              price: item.ph,
+              img: item.image_url,
+              amount: element.amount,
+              type: 'beer',
+            }
+          })
+          items = items.concat(transform);
+        } else {
+          const response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${element.productNumber}`);
+          const arrayAUX=[];
+          arrayAUX.push(response)
+          const transform = arrayAUX.map(item => {
+            return {
+              id: item.id,
+              name: item.name,
+              ingredients: item.ingredients,
+              description:item.description,
+              price: 10,
+              type: 'burger',
+              amount: element.amount,
+              img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
+          }
+          })
+          items = items.concat(transform);
+        }
+          
+        setCartProducts(items);
+      }
+    }
+
     
     //ADDING ITEMS TO THE CART
     function AddItemToCartHandler (item) {
       const updatedTotalAmount = totalAmount + item.amount;
-      const existingItemIndex = cartProducts.findIndex(element => element.id === item.id);
+      const existingItemIndex = cartProducts.findIndex(element => element.id  === item.id && element.type === item.type);
       const existingItem = cartProducts[existingItemIndex];
       let updatedItems = undefined;
 
@@ -151,10 +148,10 @@ const ContextProvider = (props) => {
       setTotalAmount(updatedTotalAmount)
     }
     //REMOVING ITEMS FROM THE CART
-    function removeItemFromCart (id) {
+    function removeItemFromCart (id, type) {
       const url = `http://localhost:8080/cartItems/${theUserId}`;
       const updatedTotalAmount = totalAmount - 1
-      const existingProductIndex = cartProducts.findIndex((product) => product.id === id);
+      const existingProductIndex = cartProducts.findIndex((product) => product.id === id && product.type === type);
       const existingProduct = cartProducts[existingProductIndex];
       
       let updatedProducts = undefined;
@@ -185,19 +182,20 @@ const ContextProvider = (props) => {
       setTotalAmount(updatedTotalAmount)
     }
 
-    function removeAllUnits(id) {
+    function removeAllUnits(id, type) {
       const url = `http://localhost:8080/cartItems/${theUserId}`;
-      const updatedProducts = cartProducts.filter((product) => product.id !== id);
+
+      const existingProductIndex = cartProducts.findIndex((product) => product.id === id && product.type === type);
+      const existingProduct = cartProducts[existingProductIndex];
+
+      const updatedProducts = cartProducts.filter(product => product !== existingProduct);
       const updatedTotalAmount = totalAmount - 1;
 
-      const existingProductIndex = cartProducts.findIndex((product) => product.id === id);
-      const existingProduct = cartProducts[existingProductIndex];
       setCartProducts(updatedProducts);
       setTotalAmount(updatedTotalAmount);
       const theItem = {
         category: existingProduct.type,
         productNumber: existingProduct.id,
-        amount: existingProduct.amount
       }
       deleteRequestData(url, theItem)
     }
@@ -207,18 +205,16 @@ const ContextProvider = (props) => {
       const clearAmount = 0;
       setCartProducts(clearCart);
       setTotalAmount(clearAmount);
-      deleteRequestData(`http://localhost:8080/cartItems/deleteAll`);
     }
 
     function clearFavorites() {
       const clearFavorites = [];
-      const clearAmount = 0;
       setFavorites(clearFavorites);
     }    
 
     //TOGGLE FAVORITES
     function toggleFavoriteHandler(item){
-      const existingItemIndex = favorites.findIndex(element => element.id === item.id);
+      const existingItemIndex = favorites.findIndex(element => element.id  === item.id && element.type === item.type);
       const existingItem = favorites[existingItemIndex];
       let updatedItems = undefined;
       
@@ -234,8 +230,11 @@ const ContextProvider = (props) => {
         updatedItems = [...favorites, item];
       } else {
         const url = `http://localhost:8080/favorites/${theUserId}`;
+
+        const existingItemIndex = favorites.findIndex((element) => element.id === item.id && element.type === item.type);
+        const existingItem = favorites[existingItemIndex];
         deleteRequestData(url, theItem);
-        updatedItems = favorites.filter(element => element.id !== item.id);
+        updatedItems = favorites.filter(element => element !== existingItem);
       }
       setFavorites(updatedItems)
     }

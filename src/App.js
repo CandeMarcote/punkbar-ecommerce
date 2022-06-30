@@ -12,7 +12,7 @@ import Login from './pages/Login';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false)
-  const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState(JSON.parse(localStorage.getItem('userId')) || -1);
 
   function loginHandler(logStatus, theUserId) {
     setIsLoggedIn(logStatus);
@@ -21,6 +21,7 @@ const App = () => {
 
   useEffect(()=>{
     localStorage.setItem('isLoggedIn', isLoggedIn)
+    localStorage.setItem('userId', userId)
   })
 
   return (

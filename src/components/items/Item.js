@@ -35,6 +35,7 @@ const Item = ({product}) => {
         });
     }
 
+
   return (
 
     <div className='item'>

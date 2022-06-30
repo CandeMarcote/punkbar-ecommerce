@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
 import '../styles/main.css';
 import postRequestData from '../services/postService';
-import CartContext from '../store/cart-context';
 import FavoritesContext from '../store/favorites-context';
+import CartContext from '../store/cart-context';
 
 const Login = (props) => {
   const [emailInput, setEmailInput] = useState('');
@@ -12,34 +12,32 @@ const Login = (props) => {
   const [emailWasTouched, setEmailWasTouched] = useState(false);
   const [passwordWasTouched, setPasswordWasTouched] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [user, setUser] = useState({});
   const cartCtx = useContext(CartContext);
   const favoritesCtx = useContext(FavoritesContext);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {})
-
-  useEffect(()=> {
-    localStorage.setItem('user', JSON.stringify(user));
-    console.log(user)
-  }, [user])
 
   let postRequest = async () => {
-    let resp = undefined;
+    let res = undefined;
     const url="http://localhost:8080/users/login";
     
-    resp = await postRequestData(url, {
+    res = await postRequestData(url, {
       email: emailInput,
       password: passwordInput
     })
     
-    setUser(resp);
-    if(resp === -1) {
-      props.onLogin(false, resp.id);
+    if(res.id > 0) {
+      setUser(res)
+      setFormIsValid(true);
+      props.onLogin(true, res.id);
     } else {
-      props.onLogin(true, resp.id);
+      props.onLogin(false, -1)
+      setFormIsValid(false)
     }
   }
 
   let history = useHistory();
 
+  // INPUT HANDLERS
   function emailChangeHandler(e){
     setEmailInput(e.target.value)
     setFormIsValid(true)
@@ -58,6 +56,7 @@ const Login = (props) => {
     setPasswordWasTouched(true);
   }
 
+  //LOGIN
   function loginHandler(e) {
     e.preventDefault();
     setEmailWasTouched(true);
@@ -73,10 +72,10 @@ const Login = (props) => {
   function logoutHandler(e) {
     setEmailInput('')
     setEmailWasTouched(false)
-    cartCtx.clearCart();
-    //favoritesCtx.clearFavorites();
     props.onLogin(false, -1);
     setUser({});
+    favoritesCtx.clearFavorites();
+    cartCtx.clearCart();
   }
 
   return (
@@ -93,7 +92,7 @@ const Login = (props) => {
             <label htmlFor="password">Password </label>
             <input className={!passwordInput && passwordWasTouched? 'invalid' : ''} onBlur={passwordBlurHandler} type="password" id="password" placeholder='type here' onChange={passwordChangeHandler} />
           </div>
-          {!formIsValid && emailWasTouched && passwordWasTouched && <p>Your e-mail, username or password is incorrect!</p>}
+          {!formIsValid && emailWasTouched && passwordWasTouched && <p>Your e-mail or password is incorrect!</p>}
           {!props.logStatus && <button type='submit' className='loginBtn' disabled={!emailInput || !passwordInput}>Log in</button>}
         </form>
       </Card>)}

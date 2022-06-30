@@ -3,7 +3,6 @@ import FavoritesList from './FavoritesList';
 import SearchByName from '../items/filters/SearchByName';
 import FavoritesContext from '../../store/favorites-context';
 import '../../styles/favorites.css'
-import getRequestData from '../../services/services';
 
 const FavoritesListContainer = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -15,9 +14,11 @@ const FavoritesListContainer = () => {
       setSearchValue(val);
     }
 
-  return (
+    const isFavoritesPopulated = items.length > 0;
+
+    return (
      <div className='favoriteItemContainer'>
-        <h3>These are your favorites!</h3>
+        {isFavoritesPopulated ? <h3>These are your favorites!</h3> : <h3>No favorites added yet...</h3>}
         <div className='filterContainer'>
           <SearchByName onGetSearchValue={getSearchValueHandler}/>
         </div>
