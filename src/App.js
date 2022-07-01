@@ -9,6 +9,7 @@ import Favorites from './pages/Favorites';
 import Header from './components/layout/Header';
 import ContextProvider from './store/ContextProvider';
 import Login from './pages/Login';
+import FavoritesProvider from './store/FavoritesProvider';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn')) || false)
@@ -27,6 +28,7 @@ const App = () => {
   return (
     <>
       <ContextProvider userId={userId}>
+      <FavoritesProvider userId={userId}>
       <Header onLogin={loginHandler} logStatus={isLoggedIn} onUserId={userId}/>
       <>
         <Switch>
@@ -67,6 +69,7 @@ const App = () => {
           </Switch>
         )}           
       </>
+      </FavoritesProvider>
       </ContextProvider>
     </>
   )

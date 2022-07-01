@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import CartContext from "./cart-context";
-import FavoritesContext from "./favorites-context";
 import postRequestData from "../services/postService";
 import deleteRequestData from "../services/deleteService";
 import getRequestData from "../services/services";
@@ -9,60 +8,59 @@ import putRequestData from "../services/putService";
 const ContextProvider = (props) => {
     const [cartProducts, setCartProducts] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-    const [favorites, setFavorites] = useState([]);
+    //const [favorites, setFavorites] = useState([]);
     const theUserId = props.userId;
-    console.log("user id: " + theUserId)
 
     useEffect(()=> {
       if(theUserId > -1) {
-        getFavoritesFromDB();
+        //getFavoritesFromDB();
         getCartItemsFromDB();
       }
     }, [theUserId]);
   
     //GET FAVORITES FROM DB
-    let getFavoritesFromDB = async () => {
-      const url = `http://localhost:8080/favorites/${theUserId}`;
-      const res = await getRequestData(url);
+    // let getFavoritesFromDB = async () => {
+    //   const url = `http://localhost:8080/favorites/${theUserId}`;
+    //   const res = await getRequestData(url);
 
-      let beers = []
-      for (let i = 0; i < res.length; i++) {
-        const element = res[i];
-        if(element.category === "beer") {
-          const response = await getRequestData(`https://api.punkapi.com/v2/beers/${element.productNumber}`);
-          const transform = response.map(item => {
-            return {
-              id: item.id,
-              name: item.name,
-              description: item.description,
-              ibu: item.ibu,
-              abv: item.abv,
-              price: item.ph,
-              img: item.image_url,
-              type: 'beer',
-            }
-          })
-          beers = beers.concat(transform);
-        } else {
-          const response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${element.productNumber}`);
-          const arrayAUX = [];
-          arrayAUX.push(response)
-          const transform = arrayAUX.map(item => {
-            return {
-              id: item.id,
-              name: item.name,
-              ingredients: item.ingredients,
-              description:item.description,
-              price: 10,
-              type: 'burger',
-              img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
-          }
-          })
-          beers = beers.concat(transform);
-        }
-        setFavorites(beers);
-      }
-    }
+    //   let beers = []
+    //   for (let i = 0; i < res.length; i++) {
+    //     const element = res[i];
+    //     if(element.category === "beer") {
+    //       const response = await getRequestData(`https://api.punkapi.com/v2/beers/${element.productNumber}`);
+    //       const transform = response.map(item => {
+    //         return {
+    //           id: item.id,
+    //           name: item.name,
+    //           description: item.description,
+    //           ibu: item.ibu,
+    //           abv: item.abv,
+    //           price: item.ph,
+    //           img: item.image_url,
+    //           type: 'beer',
+    //         }
+    //       })
+    //       beers = beers.concat(transform);
+    //     } else {
+    //       const response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${element.productNumber}`);
+    //       const arrayAUX = [];
+    //       arrayAUX.push(response)
+    //       const transform = arrayAUX.map(item => {
+    //         return {
+    //           id: item.id,
+    //           name: item.name,
+    //           ingredients: item.ingredients,
+    //           description:item.description,
+    //           price: 10,
+    //           type: 'burger',
+    //           img: "https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/cdn/a503e7eb-0166-4f30-86d6-d276dfcbd3bc/42447522-65cd-428e-ae12-14a2b3754be4_560_420.jpg",
+    //       }
+    //       })
+    //       beers = beers.concat(transform);
+    //     }
+    //     setFavorites(beers);
+    //   }
+    // }
 
 
     //GET CART ITEMS FROM DATABASE
@@ -182,6 +180,7 @@ const ContextProvider = (props) => {
       setTotalAmount(updatedTotalAmount)
     }
 
+    // REMOVE ALL UNITS OF ONE ITEM
     function removeAllUnits(id, type) {
       const url = `http://localhost:8080/cartItems/${theUserId}`;
 
@@ -200,6 +199,7 @@ const ContextProvider = (props) => {
       deleteRequestData(url, theItem)
     }
 
+    // CLEAR CART (NO BACKEND)
     function clearCart() {
       const clearCart = [];
       const clearAmount = 0;
@@ -207,37 +207,37 @@ const ContextProvider = (props) => {
       setTotalAmount(clearAmount);
     }
 
-    function clearFavorites() {
-      const clearFavorites = [];
-      setFavorites(clearFavorites);
-    }    
+    // function clearFavorites() {
+    //   const clearFavorites = [];
+    //   setFavorites(clearFavorites);
+    // }    
 
     //TOGGLE FAVORITES
-    function toggleFavoriteHandler(item){
-      const existingItemIndex = favorites.findIndex(element => element.id  === item.id && element.type === item.type);
-      const existingItem = favorites[existingItemIndex];
-      let updatedItems = undefined;
+    // function toggleFavoriteHandler(item){
+    //   const existingItemIndex = favorites.findIndex(element => element.id  === item.id && element.type === item.type);
+    //   const existingItem = favorites[existingItemIndex];
+    //   let updatedItems = undefined;
       
-      const theItem = {
-        productNumber: item.id,
-        category: item.type,
-        userId: theUserId,
-      }
-      if(!existingItem) {
-        const url = "http://localhost:8080/favorites/";
+    //   const theItem = {
+    //     productNumber: item.id,
+    //     category: item.type,
+    //     userId: theUserId,
+    //   }
+    //   if(!existingItem) {
+    //     const url = "http://localhost:8080/favorites/";
         
-        postRequestData(url, theItem);
-        updatedItems = [...favorites, item];
-      } else {
-        const url = `http://localhost:8080/favorites/${theUserId}`;
+    //     postRequestData(url, theItem);
+    //     updatedItems = [...favorites, item];
+    //   } else {
+    //     const url = `http://localhost:8080/favorites/${theUserId}`;
 
-        const existingItemIndex = favorites.findIndex((element) => element.id === item.id && element.type === item.type);
-        const existingItem = favorites[existingItemIndex];
-        deleteRequestData(url, theItem);
-        updatedItems = favorites.filter(element => element !== existingItem);
-      }
-      setFavorites(updatedItems)
-    }
+    //     const existingItemIndex = favorites.findIndex((element) => element.id === item.id && element.type === item.type);
+    //     const existingItem = favorites[existingItemIndex];
+    //     deleteRequestData(url, theItem);
+    //     updatedItems = favorites.filter(element => element !== existingItem);
+    //   }
+    //   setFavorites(updatedItems)
+    // }
     
     const cartContext = {
       items: cartProducts,
@@ -248,18 +248,18 @@ const ContextProvider = (props) => {
       clearCart: clearCart,
     };
     
-    const favoritesContext = {
-      items: favorites,
-      toggleItem: toggleFavoriteHandler,
-      clearFavorites: clearFavorites,
-    }
+    // const favoritesContext = {
+    //   items: favorites,
+    //   toggleItem: toggleFavoriteHandler,
+    //   clearFavorites: clearFavorites,
+    // }
 
   return (
       <>
         <CartContext.Provider value={cartContext}>
-        <FavoritesContext.Provider value={favoritesContext}>
+        {/* <FavoritesContext.Provider value={favoritesContext}> */}
             {props.children}
-        </FavoritesContext.Provider>
+        {/* </FavoritesContext.Provider> */}
         </CartContext.Provider>
       </>
   )

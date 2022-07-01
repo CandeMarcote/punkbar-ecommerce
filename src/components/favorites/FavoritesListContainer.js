@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import FavoritesList from './FavoritesList';
 import SearchByName from '../items/filters/SearchByName';
 import FavoritesContext from '../../store/favorites-context';
