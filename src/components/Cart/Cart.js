@@ -26,7 +26,6 @@ const Cart = ({userId}) => {
       postRequestData(url);
       
       cartCtx.clearCart();
-      deleteRequestData(`http://localhost:8080/cartItems/deleteAll/${userId}`);
       showModalHander();
     }
 
