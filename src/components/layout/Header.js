@@ -16,6 +16,9 @@ const Header = (props) => {
     favoritesCtx.clearFavorites();
     cartCtx.clearCart();
 
+    localStorage.setItem("burgersCurrentPage", 1)
+    localStorage.setItem("beersCurrentPage", 1)
+
     history.push('/login')
   }
 

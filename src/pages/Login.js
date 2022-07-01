@@ -76,6 +76,8 @@ const Login = (props) => {
     setUser({});
     favoritesCtx.clearFavorites();
     cartCtx.clearCart();
+    localStorage.setItem("burgersCurrentPage", 1)
+    localStorage.setItem("beersCurrentPage", 1)
   }
 
   return (

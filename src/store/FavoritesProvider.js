@@ -7,7 +7,6 @@ import getRequestData from "../services/services";
 const FavoritesProvider = (props) => {
     const [favorites, setFavorites] = useState([]);
     const theUserId = props.userId;
-    console.log("user id: " + theUserId)
 
     useEffect(()=> {
       if(theUserId > -1) {

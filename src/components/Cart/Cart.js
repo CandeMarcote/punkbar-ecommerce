@@ -13,7 +13,6 @@ const Cart = ({userId}) => {
     const [showModal, setShowModal] = useState(false);
     const { items } = useContext(CartContext);
 
-
     function showModalHander() {
       setShowModal(true);
     }
@@ -23,13 +22,12 @@ const Cart = ({userId}) => {
     }
 
     function orderHandler() {
-      showModalHander();
-      const orderNumber = parseInt(userId + Date.now().toString());
-      const url = `http://localhost:8080/orderItems/place_order/${userId}/${orderNumber}`;
-      postRequestData(url)
+      const url = `http://localhost:8080/orderItems/place_order/${userId}`;
+      postRequestData(url);
       
       cartCtx.clearCart();
       deleteRequestData(`http://localhost:8080/cartItems/deleteAll/${userId}`);
+      showModalHander();
     }
 
      const theCartItems = items.map(item => {
