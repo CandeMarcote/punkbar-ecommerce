@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import FavoritesContext from "./favorites-context";
-import postRequestData from "../services/postService";
+/* import postRequestData from "../services/postService";
 import deleteRequestData from "../services/deleteService";
-import getRequestData from "../services/services";
+import getRequestData from "../services/services"; */
+import { getFavorites, postFavorite, deleteFavorite } from "../services/favoritesService";
 
 const FavoritesProvider = (props) => {
     const [favorites, setFavorites] = useState([]);
@@ -17,13 +18,13 @@ const FavoritesProvider = (props) => {
     //GET FAVORITES FROM DB: 1) get the results from the DB. For every item check whether it's a beer or a burger, make the request, transform the data and set the results to the state favorites
     let getFavoritesFromDB = async () => {
       const url = `http://localhost:8080/favorites/${theUserId}`;
-      const res = await getRequestData(url);
+      const res = await getFavorites(url);
 
       let beers = []
       for (let i = 0; i < res.length; i++) {
         const element = res[i];
         if(element.category === "beer") {
-          const response = await getRequestData(`https://api.punkapi.com/v2/beers/${element.productNumber}`);
+          const response = await getFavorites(`https://api.punkapi.com/v2/beers/${element.productNumber}`);
           const transform = response.map(item => {
             return {
               id: item.id,
@@ -38,7 +39,7 @@ const FavoritesProvider = (props) => {
           })
           beers = beers.concat(transform);
         } else {
-          const response = await getRequestData(`https://my-burger-api.herokuapp.com/burgers/${element.productNumber}`);
+          const response = await getFavorites(`https://my-burger-api.herokuapp.com/burgers/${element.productNumber}`);
           const arrayAUX = [];
           arrayAUX.push(response)
           const transform = arrayAUX.map(item => {
@@ -79,14 +80,14 @@ const FavoritesProvider = (props) => {
       if(!existingItem) {
         const url = "http://localhost:8080/favorites/";
         
-        postRequestData(url, theItem);
+        postFavorite(url, theItem);
         updatedItems = [...favorites, item];
       } else {
         const url = `http://localhost:8080/favorites/${theUserId}`;
 
         const existingItemIndex = favorites.findIndex((element) => element.id === item.id && element.type === item.type);
         const existingItem = favorites[existingItemIndex];
-        deleteRequestData(url, theItem);
+        deleteFavorite(url, theItem);
         updatedItems = favorites.filter(element => element !== existingItem);
       }
       setFavorites(updatedItems)
@@ -94,6 +95,7 @@ const FavoritesProvider = (props) => {
     
     const favoritesContext = {
       items: favorites,
+      userId: theUserId,
       toggleItem: toggleFavoriteHandler,
       clearFavorites: clearFavorites,
     }

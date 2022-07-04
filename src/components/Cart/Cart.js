@@ -4,8 +4,8 @@ import CartContext from '../../store/cart-context';
 import CartItem from './CartItem';
 import Modal from '../UI/Modal';
 import '../../styles/cartItems.css';
-import postRequestData from '../../services/postService';
-import deleteRequestData from '../../services/deleteService';
+//import postRequestData from '../../services/postService';
+import postOrder from '../../services/orderService';
 
 
 const Cart = ({userId}) => {
@@ -23,15 +23,14 @@ const Cart = ({userId}) => {
 
     function orderHandler() {
       const url = `http://localhost:8080/orderItems/place_order/${userId}`;
-      postRequestData(url);
-      
+      postOrder(url)
       cartCtx.clearCart();
       showModalHander();
     }
 
-     const theCartItems = items.map(item => {
-         return <CartItem key={item.type + item.id} product={item} />
-     })
+    const theCartItems = items.map(item => {
+      return <CartItem key={item.type + item.id} product={item} />
+    })
 
      const isCartPopulated = theCartItems.length > 0;
 

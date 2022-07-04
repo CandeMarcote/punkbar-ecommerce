@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../components/UI/Card';
 import '../styles/main.css';
-import postRequestData from '../services/postService';
+//import postRequestData from '../services/postService';
+import postUser from '../services/userService';
 import FavoritesContext from '../store/favorites-context';
 import CartContext from '../store/cart-context';
 
@@ -20,12 +21,16 @@ const Login = (props) => {
     let res = undefined;
     const url="http://localhost:8080/users/login";
     
-    res = await postRequestData(url, {
+    res = await postUser(url, {
       email: emailInput,
       password: passwordInput
     })
+    .then( res => res.json() )
+    .then( async (result) => {
+      return result
+    });
     
-    if(res.id > 0) {
+     if(res.id > 0) {
       setUser(res)
       setFormIsValid(true);
       props.onLogin(true, res.id);

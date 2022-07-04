@@ -2,7 +2,7 @@ import React from "react";
 
 const FavoritesContext = React.createContext({
     items:[],
-    amount: 0,
+    userId: -1,
     toggleItem: (item) => {},
     clearFavorites: () => {},
 })
